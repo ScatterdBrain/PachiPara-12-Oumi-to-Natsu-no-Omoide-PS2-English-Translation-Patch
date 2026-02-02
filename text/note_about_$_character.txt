@@ -1,9 +1,0 @@
-$i - 私 or 僕 depending on character
-$p - Protagonist full name
-$pu - Protagonist first name
-$pl - Protagonist last name
-$n - new line
-$e - context string (money amount, item name, etc.)
-$c? - open color
-$cr - close color
-$mp - memory card number
