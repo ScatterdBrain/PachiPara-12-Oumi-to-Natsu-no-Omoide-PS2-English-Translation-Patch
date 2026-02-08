@@ -1,6 +1,9 @@
 # PachiPara-12-English-Translation
-An English translation project for Irem's PS2 game PachiPara 12. \
+An English translation project for "PachiPara 12: Ōumi to Natsu no Omoide" [SLPS-25574] PS2 game developed by IREM.
 
-Tools used: \
-[QuickBMS](https://aluigi.altervista.org/quickbms.htm) - unpacking of .DAT files with disaster_report.bms script. \
-![WIP1](WIP/WIP_Cutscene_Dialogue.png)![WIP2](WIP/WIP_Chart.png)![WIP3](WIP/WIP_Pachinko_Battle.png)![WIP4](WIP/WIP_Inventory.png)
+## Tools used:
+* [PCSX2](https://pcsx2.net/) - Debugging.
+* [QuickBMS](https://aluigi.altervista.org/quickbms.htm) - unpacking of .DAT files with disaster_report.bms script.
+
+## Credits:
+* GXZ95 - Translation 
