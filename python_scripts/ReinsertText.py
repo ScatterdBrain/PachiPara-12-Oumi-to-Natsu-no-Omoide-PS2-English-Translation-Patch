@@ -93,7 +93,7 @@ reinsertion_targets = {
             22 : {"offset" : 1809576, "size" : 4599},
             23 : {"offset" : 1817208, "size" : 167},
             24 : {"offset" : 1817640, "size" : 10447},
-            25 : {"offset" : 1841056, "size" : 71},
+            # 25 : {"offset" : 1841056, "size" : 71},
             26 : {"offset" : 1841224, "size" : 1623},
             27 : {"offset" : 1845232, "size" : 13447}
             # 28 : {"offset" : 1906176, "size" : 147},
@@ -120,19 +120,21 @@ reinsertion_targets = {
     }
 
 
+# TODO make it more readable
 def main():
     work_dir = os.getcwd()
     if os.path.normpath(work_dir).split(os.path.sep)[-1] != "python_scripts":
         input('Press Enter to close.')
         sys.exit()
     work_dir = os.path.dirname(work_dir)
+    # main loop
     for target in reinsertion_targets.keys():
         match target:
             case "SLPS_255.74":
-                bin_path = work_dir + "/assets/" + target
+                bin_path = work_dir + "/disc_contents/" + target
                 csv_path =  work_dir + "/text/" + target + ".csv"
             case _:
-                bin_path = work_dir + "/assets/MAP/" + target
+                bin_path = work_dir + "/disc_contents/MAP/" + target
                 csv_path =  work_dir + "/text/" + target.rsplit('.', 1)[0] + ".csv"
         if not os.path.isfile(bin_path):
             print(bin_path + " is missing.")
@@ -141,18 +143,21 @@ def main():
             print(csv_path + " is missing.")
             continue
         text_blocks = {}
+        # get strings for reinsertion
         with open(csv_path, 'r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile, delimiter = ';', quotechar = '"')
             for row in reader:
-                if row["block"] == "_":
+                if row["block"] != "_" and int(row["block"]) in reinsertion_targets[target]["text_blocks"].keys():
+                    if row["block"] not in text_blocks.keys():
+                        text_blocks[row["block"]] = {}
+                    if row["pointer"] != "":
+                        if row["e_string"] != "":
+                            text_blocks[row["block"]][int(row["pointer"], 16)] = row["e_string"]
+                        else:
+                            text_blocks[row["block"]][int(row["pointer"], 16)] = row["j_string"]
+                else:
                     continue
-                if row["block"] not in text_blocks.keys():
-                    text_blocks[row["block"]] = {}
-                if row["pointer"] != "":
-                    if row["e_string"] != "":
-                        text_blocks[row["block"]][int(row["pointer"], 16)] = row["e_string"]
-                    else:
-                        text_blocks[row["block"]][int(row["pointer"], 16)] = row["j_string"]
+        # write strings
         with open(bin_path, 'r+b') as binfile:
             free_space = {}
             excess_strings = {}
@@ -165,6 +170,7 @@ def main():
                 string_boundry = size + offset
                 data = {}
                 repeats = 0
+                # prep binary data for writing
                 for pointer in text_blocks[str(block)]:
                     bin_string = bytearray()
                     try:
@@ -173,7 +179,8 @@ def main():
                         # Workaround for some of the characters the game is using in original strings. Shouldn't matter if all strings are translated.
                         bin_string = (target + "_" + ("%X" % pointer)).encode(encoding='shift-jis')
                     bin_string += b'\x00'
-                    if string_offset > string_boundry:
+                    # maybe should think this portion through in case repeats would be out of bounds???
+                    if string_offset + len(bin_string) > string_boundry:
                         excess_strings[bin_string] = pointer
                         continue
                     if bin_string not in data.keys():
@@ -183,7 +190,7 @@ def main():
                     elif bin_string in data.keys():
                         data[repeats] = {"offset" : data[bin_string]["offset"], "pointer" : pointer}
                         repeats += 1
-                if string_boundry - string_offset > 16:
+                if string_boundry - string_offset > 32:
                     free_space[block] = {"offset" : string_offset, "size" : string_boundry - string_offset}
                 for key in data:
                     if type(key) is bytes:
@@ -191,11 +198,31 @@ def main():
                         binfile.write(key)
                     binfile.seek(data[key]["pointer"])
                     binfile.write((data[key]["offset"] + reinsertion_targets[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
-            # TODO handle excess strings
+            # write strings that didn't fit, might rewrite it later but it works for now
+            for string in list(excess_strings.keys()):
+                string_offset = 0
+                for key in list(free_space.keys()):
+                    if len(string) <= free_space[key]["size"]:
+                        string_offset = free_space[key]["offset"]
+                        free_space[key]["size"] -= len(string)
+                        free_space[key]["offset"] += len(string)
+                        if free_space[key]["size"] <= 32:
+                            free_space.pop(key)
+                        break
+                    else:
+                        pass
+                if string_offset != 0:
+                    binfile.seek(string_offset)
+                    binfile.write(string)
+                    binfile.seek(excess_strings[string])
+                    binfile.write((string_offset + reinsertion_targets[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
+                    excess_strings.pop(string)
+                else:
+                    print(target + " not enough space.")
+                    break
     input('Press Enter to close.')
     sys.exit()
     
 
 if __name__ == "__main__":
     main()
-    
