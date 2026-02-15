@@ -3,15 +3,14 @@ import os
 import csv
 
 
-# WIP text reinsertion script
-reinsertion_targets = {
+# Commented blocks miss pointers
+REINSERT_TARGETS = {
     "M_01_01.BIN" : {
         "pointer_offset" : 4668672, "text_blocks" : {
             1 : {"offset" : 294032, "size" : 71},
             2 : {"offset" : 294128, "size" : 53551},
             3 : {"offset" : 370784, "size" : 70511}
-            # 4 {"offset" : 729923, "size" : 136} pointers for text in this block loaded through code. Ex. lui a0,0x1234; addiu a0,a0,0x5678;
-            # TODO work on reinsertion of "pointerless" text.
+            # 4 {"offset" : 729923, "size" : 136}
             }
         },
     "M_02_01.BIN" : {
@@ -58,13 +57,13 @@ reinsertion_targets = {
             17 : {"offset" : 854360, "size" : 687},
             18 : {"offset" : 855520, "size" : 47},
             19 : {"offset" : 855856, "size" : 9775},
-            20 : {"offset" : 871656, "size" : 391}
+            20 : {"offset" : 871656, "size" : 391},
             # 21 : {"offset" : 893520, "size" : 639},
             # 22 : {"offset" : 895568, "size" : 191},
             # 23 : {"offset" : 895824, "size" : 175},
             # 24 : {"offset" : 896032, "size" : 47},
             # 25 : {"offset" : 896112, "size" : 47},
-            # 26 : {"offset" : 905126, "size" : 25}
+            26 : {"offset" : 905126, "size" : 25}
             }
         },
     "SLPS_255.74" : {
@@ -72,7 +71,7 @@ reinsertion_targets = {
             1 : {"offset" : 1512256, "size" : 3959},
             2 : {"offset" : 1517264, "size" : 5567},
             3 : {"offset" : 1576480, "size" : 3375},
-            # 4 : {"offset" : 1592048, "size" : 47},
+            4 : {"offset" : 1592048, "size" : 44},
             # 5 : {"offset" : 1592112, "size" : 95},
             6 : {"offset" : 1622144, "size" : 12407},
             7 : {"offset" : 1654336, "size" : 2935},
@@ -95,9 +94,9 @@ reinsertion_targets = {
             24 : {"offset" : 1817640, "size" : 10447},
             # 25 : {"offset" : 1841056, "size" : 71},
             26 : {"offset" : 1841224, "size" : 1623},
-            27 : {"offset" : 1845232, "size" : 13447}
+            27 : {"offset" : 1845232, "size" : 13447},
             # 28 : {"offset" : 1906176, "size" : 147},
-            # 29 : {"offset" : 1933600, "size" : 2358},
+            29 : {"offset" : 1933609, "size" : 2340}
             # 30 : {"offset" : 1953424, "size" : 95},
             # 31 : {"offset" : 1954848, "size" : 1119},
             # 32 : {"offset" : 1956032, "size" : 47},
@@ -120,15 +119,9 @@ reinsertion_targets = {
     }
 
 
-# TODO make it more readable
-def main():
-    work_dir = os.getcwd()
-    if os.path.normpath(work_dir).split(os.path.sep)[-1] != "python_scripts":
-        input('Press Enter to close.')
-        sys.exit()
-    work_dir = os.path.dirname(work_dir)
-    # main loop
-    for target in reinsertion_targets.keys():
+def main(work_dir : str):
+    # Going over every file in a loop
+    for target in REINSERT_TARGETS.keys():
         match target:
             case "SLPS_255.74":
                 bin_path = work_dir + "/disc_contents/" + target
@@ -143,11 +136,11 @@ def main():
             print(csv_path + " is missing.")
             continue
         text_blocks = {}
-        # get strings for reinsertion
-        with open(csv_path, 'r', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile, delimiter = ';', quotechar = '"')
+        # Get text data
+        with open(csv_path, 'r', encoding='utf-8') as csv_file:
+            reader = csv.DictReader(csv_file, delimiter = ';', quotechar = '"')
             for row in reader:
-                if row["block"] != "_" and int(row["block"]) in reinsertion_targets[target]["text_blocks"].keys():
+                if row["block"] != "_" and int(row["block"]) in REINSERT_TARGETS[target]["text_blocks"].keys():
                     if row["block"] not in text_blocks.keys():
                         text_blocks[row["block"]] = {}
                     if row["pointer"] != "":
@@ -157,20 +150,20 @@ def main():
                             text_blocks[row["block"]][int(row["pointer"], 16)] = row["j_string"]
                 else:
                     continue
-        # write strings
-        with open(bin_path, 'r+b') as binfile:
+        # Writing text data to binary file
+        with open(bin_path, 'r+b') as bin_file:
             free_space = {}
             excess_strings = {}
-            for block in reinsertion_targets[target]["text_blocks"]:
-                offset = reinsertion_targets[target]["text_blocks"][block]["offset"]
-                size = reinsertion_targets[target]["text_blocks"][block]["size"]
-                binfile.seek(offset)
-                binfile.write(bytearray(size))
+            for block in REINSERT_TARGETS[target]["text_blocks"]:
+                offset = REINSERT_TARGETS[target]["text_blocks"][block]["offset"]
+                size = REINSERT_TARGETS[target]["text_blocks"][block]["size"]
+                bin_file.seek(offset)
+                bin_file.write(bytearray(size))
                 string_offset = offset
                 string_boundry = size + offset
                 data = {}
                 repeats = 0
-                # prep binary data for writing
+                # Prep binary data for writing
                 for pointer in text_blocks[str(block)]:
                     bin_string = bytearray()
                     try:
@@ -179,7 +172,7 @@ def main():
                         # Workaround for some of the characters the game is using in original strings. Shouldn't matter if all strings are translated.
                         bin_string = (target + "_" + ("%X" % pointer)).encode(encoding='shift-jis')
                     bin_string += b'\x00'
-                    # maybe should think this portion through in case repeats would be out of bounds???
+                    # Maybe should think this portion through in case repeats would be out of bounds???
                     if string_offset + len(bin_string) > string_boundry:
                         excess_strings[bin_string] = pointer
                         continue
@@ -192,36 +185,41 @@ def main():
                         repeats += 1
                 if string_boundry - string_offset > 32:
                     free_space[block] = {"offset" : string_offset, "size" : string_boundry - string_offset}
+                print("Writing block " + str(block) + " to " + str(target))
                 for key in data:
                     if type(key) is bytes:
-                        binfile.seek(data[key]["offset"])
-                        binfile.write(key)
-                    binfile.seek(data[key]["pointer"])
-                    binfile.write((data[key]["offset"] + reinsertion_targets[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
-            # write strings that didn't fit, might rewrite it later but it works for now
-            for string in list(excess_strings.keys()):
-                string_offset = 0
-                for key in list(free_space.keys()):
-                    if len(string) <= free_space[key]["size"]:
-                        string_offset = free_space[key]["offset"]
-                        free_space[key]["size"] -= len(string)
-                        free_space[key]["offset"] += len(string)
-                        if free_space[key]["size"] <= 32:
-                            free_space.pop(key)
-                        break
+                        bin_file.seek(data[key]["offset"])
+                        bin_file.write(key)
+                    bin_file.seek(data[key]["pointer"])
+                    bin_file.write((data[key]["offset"] + REINSERT_TARGETS[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
+            # Write strings that didn't fit, might rewrite it later but it works for now
+            if excess_strings:
+                print("Writing excess strings to " + str(target))
+                print("Free space: ", free_space)
+                for string in list(excess_strings.keys()):
+                    string_offset = 0
+                    for key in list(free_space.keys()):
+                        if len(string) <= free_space[key]["size"]:
+                            string_offset = free_space[key]["offset"]
+                            free_space[key]["size"] -= len(string)
+                            free_space[key]["offset"] += len(string)
+                            if free_space[key]["size"] <= 32:
+                                free_space.pop(key)
+                            break
+                        else:
+                            pass
+                    if string_offset != 0:
+                        bin_file.seek(string_offset)
+                        bin_file.write(string)
+                        bin_file.seek(excess_strings[string])
+                        bin_file.write((string_offset + REINSERT_TARGETS[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
+                        excess_strings.pop(string)
                     else:
-                        pass
-                if string_offset != 0:
-                    binfile.seek(string_offset)
-                    binfile.write(string)
-                    binfile.seek(excess_strings[string])
-                    binfile.write((string_offset + reinsertion_targets[target]["pointer_offset"]).to_bytes(4, byteorder='little', signed=True))
-                    excess_strings.pop(string)
-                else:
-                    print(target + " not enough space.")
-                    break
-    input('Press Enter to close.')
-    sys.exit()
+                        print(target + " not enough space.")
+                        break
+                print("After writing: ", free_space)
+    print("Reinserted the text.")
+    return
     
 
 if __name__ == "__main__":
