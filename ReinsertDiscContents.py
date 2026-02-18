@@ -21,16 +21,11 @@ DISC_CONTENTS = {
     }
 
 
-def main():
-    iso_file = open(ISO_PATH, 'r+b')
-    for key in DISC_CONTENTS.keys():
-        with open("disc_contents/" + key, 'rb') as infile:
-            iso_file.seek(DISC_CONTENTS[key])
-            iso_file.write(infile.read())
-    iso_file.close()
-    input("Press Enter to close.")
-    sys.exit()
-
-
-if __name__ == '__main__':
-    main()
+iso_file = open(ISO_PATH, 'r+b')
+for key in DISC_CONTENTS.keys():
+    with open("disc_contents/" + key, 'rb') as infile:
+        iso_file.seek(DISC_CONTENTS[key])
+        iso_file.write(infile.read())
+iso_file.close()
+input("Press Enter to close.")
+sys.exit()
