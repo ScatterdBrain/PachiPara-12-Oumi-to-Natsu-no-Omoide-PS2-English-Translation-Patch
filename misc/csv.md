@@ -1,5 +1,4 @@
-## How to:
-### Working With Text Files:
+## How to work with csv files:
 #### Step 1:
 Import csv text file into spreadsheet editor of your choice using these settings.\
 <img src="csv_import.webp"/>
@@ -13,9 +12,10 @@ Export edited file using these settings.\
 <img src="csv_export.webp"/>
 
 #### Fields Explanation:
-* block - which block of text particular string resides.
+* block - which block of text particular string resides in.
 * j_offset - address of original string.
 * j_string - original string.
-* e_string - translated string
+* e_string - translated string.
 * pointer - address of pointer to the string.
+
 
