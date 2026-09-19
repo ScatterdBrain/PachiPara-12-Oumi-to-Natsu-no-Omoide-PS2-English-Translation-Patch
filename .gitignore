@@ -1,0 +1,6 @@
+__pycache__/
+/compression_test/
+/dump/
+*.iso
+*.xcf
+armips.py

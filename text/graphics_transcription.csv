@@ -5,68 +5,126 @@
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+The cases that have occurred can be
+solved using the Deduction Editor.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03021.TM2.png";"【推理エディタについて】
 推理のスタートである問題ピースから…
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+Start from the Problem Piece,
+which is the beginning of your deduction...
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03022.TM2.png";"【推理エディタについて】
 ゴールである結論ピースまでを証拠ピースで
 つなげて推理を組み立てていきます。
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+...and connect Evidence Pieces to the
+Conclusion Piece to build your inference.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03023.TM2.png";"【推理エディタについて】
 証拠ピースは、町の人の話などから
 新たな証言を得ることで増えていきます。
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+Evidence Pieces increase as you obtain new
+testimony from the townspeople and others.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03024.TM2.png";":選択
 :決定
 :推理決定
-:戻る";
+:戻る";":Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03025.TM2.png";"【推理エディタについて】
 新たな証言を集めて証拠ピースを増やし、
 問題ピースと結論ピースの間をつなげましょう。
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+Gather new testimony to increase your Evidence Pieces,
+and connect the Problem Piece to the Conclusion Piece.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03026.TM2.png";":選択
 :決定
 :推理決定
-:戻る";
+:戻る";":Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03027.TM2.png";"【推理エディタについて】
 ただし、証言の中には推理に必要ないものも
 あるので注意してください。
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+However, be aware that some testimonies
+aren't necessarily needed for your deduction.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03028.TM2.png";"【推理エディタについて】
 問題ピースと、結論ピースをつなげたあと、
 推理決定ボタン(△)を押すと…
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"[About the Deduction Editor]
+Once you've connected the Problem Piece and the Conclusion Piece,
+press the Deduce button (△)...
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03029.TM2.png";"推理完了
 【推理エディタについて】
 推理完了となります。
 :選択
 :決定
 :推理決定
-:戻る";
+:戻る";"Deduction Complete
+[About the Deduction Editor]
+The deduction is complete.
+:Select
+:Confirm
+:Deduce
+:Back"
 "COMMON";"03041.TM2.png";"パチパラ12
 ~大海と夏の思い出~
 PRESS START
 © SANYOBUSSAN CO., LTD.
-© 2005 IREM SOFTWARE ENGINEERING INC.";
+© 2005 IREM SOFTWARE ENGINEERING INC.";"PachiPara 12
+The Silver Ball Murder Case
+Press Start
+© Sanyo Bussan Co., Ltd.
+© 2005 Irem Software Engineering, Inc."
 "COMMON";"03051.TM2.png";"大海
 パチプロ風雲録
 お楽しみ
@@ -75,10 +133,20 @@ PRESS START
  オプション
 液晶ビュー
 パンフレツト
- サウンド";
+ サウンド";"Great Sea
+Pachi-Pro Chronicles
+Extras
+Normal Mode
+Challenge Mode
+Options
+LCD Viewer
+Pamphlet
+Sound"
 "COMMON";"03052.TM2.png";":選択
 :決定
-:戻る";
+:戻る";":Select
+:Confirm
+:Back"
 "COMMON";"03053.TM2.png";"パチンコ実機で遊ぶモードです
 パチンコを打ちながらストーリーを進めます
 何があるかのぞいてのお楽しみなモードです
@@ -92,14 +160,32 @@ PRESS START
 集めたフィギュアを見る事ができます
 タイトル背景の設定を行えます
 銀玉なんでも比較の記録を確認できます
-";
+";"Play on an authentic pachinko machine.
+Advance the story while playing pachinko.
+Take a peek inside to see what surprises await you.
+Tackle Great Sea Story from every angle.
+Clear Great Sea Story before time runs out.
+Adjust your in-game settings.
+Watch the LCD animations from Great Sea Story.
+Browse the Great Sea Story pamphlet.
+Listen to the in-game music and sound effects.
+Watch various cutscenes and videos.
+View the figures you've collected.
+Customize your title screen background.
+Check your records of the Silver Ball Comparison."
 "COMMON";"03055.TM2.png";"液晶ビュー
 パンフレット
  サウンド
 ムービー
 フィギユアビユー
 タイトル画像カスタマイズ
-銀玉なんでも比較";
+銀玉なんでも比較";"LCD Viewer
+Pamphlets
+Sounds
+Movies
+Figure View
+Title Image Customization
+Silver Ball Comparison"
 "COMMON";"03056.TM2.png";"液晶ビュー
 パンフレット
 サウンド
@@ -108,16 +194,31 @@ PRESS START
 タイトル画像カスタマイズ
 銀玉なんでも比較
 パンフレツト
-サウンド";
+サウンド";"LCD Viewer
+Pamphlets
+Sounds
+Movies
+Figure Viewer
+Title Image Customization
+Silver Ball Comparison
+Pamphlets
+Sounds"
 "COMMON";"03057.TM2.png";"大海
 パチプロ風雲録
 お楽しみ
 通常攻略
  実戦攻略
- オプション";
+ オプション";"Great Sea
+Pachi-Pro Chronicles
+Extras
+Normal Mode
+Challenge Mode
+Options"
 "COMMON";"03061.TM2.png";"人物
 背景
-小物";
+小物";"Person
+Background
+Small Objects"
 "COMMON";"03062.TM2.png";":選択
 :決定
 :戻る
@@ -131,13 +232,31 @@ PRESS START
 :決定
 :確認
 :戻る
-:戻る";
+:戻る";":Select
+:Confirm
+:Back
+:Select
+:Back
+:Next Page
+:Zoom In
+:Zoom Out
+:Back
+:Select
+:Check
+:Confirm
+:Back
+:Back"
 "COMMON";"03063.TM2.png";"タイトル背景
 フイギユアビユー
 液晶ビユー
 パンフレツト
 サウンド
-ムービー";
+ムービー";"Title Background
+Figure Viewer
+LCD Viewer
+Pamphlets
+Sounds
+Movies"
 "COMMON";"03064.TM2.png";"マリンちゃん
 サム
 主人公(男)
@@ -147,7 +266,16 @@ PRESS START
 片山昭吾
 黒崎竜介
 朝倉徹
-主人公(女)";
+主人公(女)";"Marine
+Sam
+Protagonist (Male)
+Noriko Shiraishi
+Yuki Misa
+Aya Katsuragi
+Shogo Katayama
+Ryusuke Kurosaki
+Toru Asakura
+Protagonist (Female)"
 "COMMON";"03065.TM2.png";"オレンジ
 制服
 ハイビスカス
@@ -163,14 +291,35 @@ Yシャツ
 水着
 ふんどし
 私服
-バスローブ";
+バスローブ";"Orange
+Uniform
+Hibiscus
+Pajamas
+Wetsuit
+Negligee
+Bikini Bottoms
+Dress Shirt
+Casual Wear
+Bunny Suit
+Yukata
+Jinbei
+Swimsuit
+Fundoshi
+Casual Outfit
+Bathrobe"
 "COMMON";"03066.TM2.png";"リーチデモ
 大当りデモ
 演出デモ
 自動回転
 終了
 パチプロ風雲録
-大海物語";
+大海物語";"Reach Demo
+Jackpot Demo
+Special Effects Demo
+Auto Spin
+Quit
+Pachi-Pro Chronicles
+Great Sea Story"
 "COMMON";"03067.TM2.png";"ラグーン
 プレミアム1
 アトランティス
@@ -189,10 +338,29 @@ Yシャツ
 エンディング5
 エンディング6
 通常時
-確变時";
+確变時";"Lagoon
+Premium 1
+Atlantis
+Premium 2
+Treasure
+Title
+Marine 1
+Ending 1
+Marine 2
+Ending 2
+Marine 3
+Ending 3
+Sam 1
+Ending 4
+Sam 2
+Ending 5
+Ending 6
+Normal Mode
+Fever Mode"
 "COMMON";"03068.TM2.png";"大当り
-はずれ";
-"COMMON";"03070.TM2.png";"オプション";
+はずれ";"Jackpot
+Miss"
+"COMMON";"03070.TM2.png";"オプション";"Options"
 "COMMON";"03075.TM2.png";"アトランティス
 街角
 ラグーン
@@ -206,11 +374,26 @@ Yシャツ
 砂浜
 お化け
 教室
-? ? ? ?";
+? ? ? ?";"Atlantis
+Street Corner
+Lagoon
+Pachinko Parlor
+Treasure
+Palm Tree
+Sam Bikini
+Bubbles
+Sam Wetsuit
+Beach Umbrella
+Sandy Beach
+Ghost
+Classroom
+????"
 "COMMON";"03078.TM2.png";"パチプロ風雲録4
 バンピートロット
-絕体絕命都市2";
-"COMMON";"03079.TM2.png";"再生中";
+絕体絕命都市2";"Pachi-Pro Chronicles 4
+Bumpy Trot
+The Desperate City 2: Frozen Memories"
+"COMMON";"03079.TM2.png";"再生中";"Now Playing"
 "COMMON";"03080.TM2.png";"ノーマル
 ノーマル+泡予告
 ノーマル+2段階
@@ -225,7 +408,21 @@ Yシャツ
 ダイビング+魚群予告
 ダイビング+赤魚群予告
 マリンちゃん+泡予告
-マリンちゃん+魚群予告";
+マリンちゃん+魚群予告";"Normal
+Normal + Bubble Teaser
+Normal + Two-Stage
+Coral Reef + Bubble Teaser
+Coral Reef + Fish Swarm Teaser
+Muscle Coral Reef + Bubble Teaser
+Muscle Coral Reef + Fish Swarm Teaser
+Muscle Coral Reef + Red Fish Swarm Teaser
+Black Current + Bubble Teaser
+Black Current + Fish Swarm Teaser
+Diving + Bubble Teaser
+Diving + Fish Swarm Teaser
+Diving + Red Fish Swarm Teaser
+Marine + Bubble Teaser
+Marine + Fish Swarm Teaser"
 "COMMON";"03081.TM2.png";"マリンちゃん+2段階
 マリンちゃん(イヤイヤ)
 ポージング+泡予告
@@ -241,7 +438,22 @@ Yシャツ
 女神像+クジラ予告
 マッスル女神像+イルカ予告
 マッスル女神像+クジラ予告
-黒潮+イルカ予告";
+黒潮+イルカ予告";"Marine + Two-Stage
+Marine (Reclutant)
+Posing + Bubble Teaser
+Posing + Fish Swarm Teaser
+Posing + Red Fish Swarm Teaser
+Off-Screen Premium
+Premium Shuffle Reach
+Original Sea Story Sound Premium
+Kaboom Premium
+Rainbow Flashing Teaser
+Normal + Dolphin Teaser
+Goddess Statue + Dolphin Teaser
+Goddess Statue + Whale Teaser
+Muscle Goddess Statue + Dolphin Teaser
+Muscle Goddess Statue + Whale Teaser
+Black Current + Dolphin Teaser"
 "COMMON";"03082.TM2.png";"黒潮+クジラ予告
 ダイビング+イルカ予告
 ダイビング+クジラ予告
@@ -257,7 +469,22 @@ Yシャツ
 ガイコツ船長+泡音予告
 ガイコツ船長+泡予告
 ガイコツ船長+クラゲ群予告
-ガイコツ船長+魚群予告";
+ガイコツ船長+魚群予告";"Black Current + Whale Teaser
+Diving + Dolphin Teaser
+Diving + Whale Teaser
+Marine + Dolphin Teaser
+Marine + Whale Teaser
+Posing + Dolphin Teaser
+Posing + Whale Teaser
+Normal + Bubble Sound Teaser
+Treasure Mountain + Bubble Sound Teaser
+Treasure Mountain + Bubble Teaser
+Treasure Mountain + Jellyfish Swarm Teaser
+Treasure Mountain + Fish Swarm Teaser
+Skeleton Captain + Bubble Sound Teaser
+Skeleton Captain + Bubble Teaser
+Skeleton Captain + Jellyfish Swarm Teaser
+Skeleton Captain + Fish Swarm Teaser"
 "COMMON";"03083.TM2.png";"黒潮+泡音予告
 黒潮+クラゲ群予告
 ダイビング+泡音予告
@@ -270,17 +497,35 @@ Yシャツ
 ブレミアムシャッターチャンス+魚群予告
 ガイコツ船長+赤魚群予告
 ダイビング+赤魚群
-プレミアムシトッターチャンス+赤魚群予告";
+プレミアムシトッターチャンス+赤魚群予告";"Black Current + Bubble Sound Teaser
+Black Current + Jellyfish Swarm Teaser
+Diving + Bubble Sound Teaser
+Diving + Jellyfish Swarm Teaser
+Marine + Bubble Sound Teaser
+Marine + Jellyfish Swarm Teaser
+Premium Shutter Chance + Bubble Sound Teaser
+Premium Shutter Chance + Bubble Teaser
+Premium Shutter Chance + Jellyfish Swarm Teaser
+Premium Shutter Chance + Fish Swarm Teaser
+Skeleton Captain + Red Fish Swarm Teaser
+Diving + Red Fish Swarm
+Premium Shutter Chance + Red Fish Swarm Teaser"
 "COMMON";"03084.TM2.png";"Pamphlets front cover
 大海物語
 great sea story
 CREATE THE WONDER
-SANYO";
+SANYO";"Pamphlet's Front Cover
+The Great Sea Story
+Great Sea Story
+Create the Wonder
+Sanyo"
 "COMMON";"03085.TM2.png";"良いモノだから愛される。
-愛されるから受け継がれる。";
+愛されるから受け継がれる。";"Loved for its quality.
+Passed down through generations."
 "COMMON";"03086.TM2.png";"「海」「新海」そして今、
-『大海物語』誕生 !!";
-"COMMON";"03087.TM2.png";"大海物語の3つのステージ。";
+『大海物語』誕生 !!";"""Sea,"" ""Great Sea,"" and now
+""Great Sea Story"" is born!!"
+"COMMON";"03087.TM2.png";"大海物語の3つのステージ。";"Three Stages of the Great Sea Story."
 "COMMON";"03088.TM2.png";"待機中、変動中に
 チャンスボタンでステージチェンジ!
 字フシーくん
@@ -298,7 +543,23 @@ SANYO";
 「ぐんぐん上がるステップアップ予告!!」
 発展すればするほど信頼度が高くなるステップ
 アップ予告を初搭載! 泡!? クラゲ!? 魚群だ!!
-新しい「海」のステップアップを祈れ!!";
+新しい「海」のステップアップを祈れ!!";"While waiting or during a spin,
+press the Chance Button to change stages!
+Fushie
+Lagoon Stage
+""Keep the good stuff just the way it is!!""
+Bubble Teasers, Fish Swarm Teasers, Red Fish Swarm Teasers, etc., are all kept exactly the same!
+A seaside stage that inherits the simple gameplay and sharply defined reach action of the original.
+Atlantis Stage
+""Rapidly Mash the Chance Button!!""
+Players themselves can get teasers by pushing the button!
+Experience the overwhelming impact of the ""Shining Fish Swarm"" and ""Hyper Fish Swarm""!
+Whether you see the teasers or not is entirely up to you!!
+Treasure Stage
+""Step-Up Teasers: Rapidly Rising!!""
+Featuring the first-ever step-up teaser, where the reliability increases the more it develops!
+Bubbles!? Jellyfish!? It’s a Fish Swarm!!
+Pray for a new ""Sea"" step-up!!"
 "COMMON";"03089.TM2.png";"ラグーンステージ
 「良いモノはあえてそのままに !! 」
 LAGOON
@@ -307,7 +568,15 @@ LAGOON
 魚群予告
 プレミアム
 赤魚群予告
-必ずサムが出現";
+必ずサムが出現";"Lagoon Stage
+""Keep the good stuff just the way it is!!""
+LAGOON
+Bubble Teaser
+Enjoy the classic “Sea” experience.
+Fish Swarm Teaser
+Premium
+Red Fish Swarm Teaser
+Sam always appears"
 "COMMON";"03090.TM2.png";"ノーマルリーチ
 珊瑚礁リーチ
 黒潮リーチ
@@ -317,7 +586,16 @@ LAGOON
 ポージングリーチ
 新海同様全てのスーパーリーチでサムが発(?)場するぞ!!
 昇格スクロール
-新海同様、動き出したら確変昇格確定??";
+新海同様、動き出したら確変昇格確定??";"Normal Reach
+Coral Reef Reach
+Black Current Reach
+Marine Reach
+Muscle Coral Reef Reach
+Diving Reach
+Posing Reach
+Just like in New Sea, Sam will appear in every Super Reach!!
+Upgrade Scroll
+Just like in New Sea, once it starts moving, a Fever Upgrade is guaranteed!?"
 "COMMON";"03091.TM2.png";"アトランティスステージ
 「アクティブにチャンスボタンを連打!!」
 ATLANTIS
@@ -334,7 +612,23 @@ ATLANTIS
 終わらない!?魚群が
 プレミアム
 超魚群予告
-確変確足!?";
+確変確足!?";"Atlantis Stage
+""Rapidly Mash the Chance Button!!""
+ATLANTIS
+Dolphin appearance means Chance Mode!
+If it develops into a Super Reach, PUSH the button!!
+If a Whale appears instead of a Dolphin...
+Premium
+Whale Teaser
+Whale appearance means Fever Mode!
+Dolphin Teaser
+Bubble Teaser
+When the button pops up, mash it!!
+Fish Swarm Teaser
+A never-ending Fish Swarm!!
+Premium
+Super Fish Swarm Teaser
+Fever Confirmed!?"
 "COMMON";"03092.TM2.png";"ノーマルリーチ
 女神像リーチ
 黒潮リーチ
@@ -344,7 +638,16 @@ ATLANTIS
 ポージングリーチ
 アトランティスステージではサムが女神像を持ち上げるそ!!
 昇格スクロール
-大当りの瞬間、貝が光れは催変昇格確定!?";
+大当りの瞬間、貝が光れは催変昇格確定!?";"Normal Reach
+Goddess Statue Reach
+Black Current Reach
+Marine Reach
+Muscle Goddess Statue Reach
+Diving Reach
+Posing Reach
+In the Atlantis Stage, Sam lifts the goddess statue!!
+Upgrade Scroll
+If the shell flashes at the jackpot moment, a Fever Upgrade is guaranteed!?"
 "COMMON";"03093.TM2.png";"トレジャーステージ
 「ぐんぐん上がるステップアップ予告!!」
 TREASURE
@@ -358,7 +661,19 @@ STEP3 クラゲ予告
 STEP4 魚群予告
 信頼度大幅UP!!
 プレミアム
-赤魚群予告";
+赤魚群予告";"Treasure Stage
+""Step-Up Teaser: Rapidly Rising!!""
+TREASURE
+Aim for the Fish Swarm in this first-ever step-up teaser.
+STEP 1: Bubble Sound Teaser
+Reach Confirmed!!
+Win Chance UP!!
+STEP 3: Jellyfish Teaser
+Super Reach Confirmed!!
+STEP 4: Fish Swarm Teaser
+Win Chance MASSIVELY UP!!
+Premium
+Red Fish Swarm Teaser"
 "COMMON";"03094.TM2.png";"他のステージの『珊瑚礁』や『女神像』より信頼度がUP!!
 ノーマルリーチ
 宝の山リーチ
@@ -369,7 +684,18 @@ STEP4 魚群予告
 プレミアムシャッターチィンスリーチ
 トレジャーステージのサムはウエットスーツで登場!!『カイコツ船長』も不気味に笑うぞ!!
 昇格スクロール
-魚群とキャラ群が横切ったら、確変昇格確定!?";
+魚群とキャラ群が横切ったら、確変昇格確定!?";"Higher win chance than ""Coral Reef"" or ""Goddess Statue"" from other stages!!
+Normal Reach
+Treasure Mountain Reach
+Black Current Reach
+Marine Reach
+Skeleton Captain Reach
+Diving Reach
+Premium Shutter Chance Reach
+Sam appears in a wetsuit on the Treasure Stage!!
+""Skeleton Captain"" also laughs eerily!!
+Upgrade Scroll
+If both a Fish Swarm and a Character Swarm pass by, a Fever Upgrade is guaranteed!?"
 "COMMON";"03095.TM2.png";"プレミアム
 枠外プレミアム
 (通常·時短中限定アクション)
@@ -387,7 +713,24 @@ STEP4 魚群予告
 変動開始時に盤面枠が激しく点滅!!
 どっかーんプレミアム!!
 変動開始時「どっかーん」とミスマリンちゃん達の声が!!
-確変継続確定!?";
+確変継続確定!?";"Premium
+Off-Screen Premium
+(Normal & Time-Saving Only Action)
+Even normal symbols may develop into it!!
+Fever Confirmed!?
+If it develops into an Off-Screen Premium with normal symbols, ""Surfing Sam"" will definitely appear and get Fever Mode!?
+Appearance Rate MASSIVELY UP!!
+Premium Shuffle Reach
+(Fever Mode Only Action)
+Jackpot Confirmed!?
+If an ""Off-Screen"" develops into a Premium Shuffle Reach during Fever Mode, all you can do is pray for Fever!!
+The Original ""Sea Story"" Sound Premium!!
+That iconic ""Sea Story"" reel spin sound!!
+Fever Confirmed!?
+The frame flashes intensely when the reels start moving!!
+Kaboom Premium!!
+At the start of the spin, Miss Marine and the others shout “Kaboom”!!
+Fever Continuation Guaranteed!?"
 "COMMON";"03096.TM2.png";"大海 PICK UP
 『大海』ではこんな所が新しくなった!!
 1 マリンちゃん2段階
@@ -398,7 +741,17 @@ STEP4 魚群予告
 ヤッ夕ー
 イヤ〜ン
 3 確変中の魚群
-確変中、魚群での大当りは確変!?";
+確変中、魚群での大当りは確変!?";"Great Sea PICK UP
+Here's what's new in ""Great Sea""!!
+1. Marine's Two-Stage
+Fever Confirmed!?
+A two-stage feature has been added to ""Marine Reach""!!
+2. Marine’s ""No-No"" Action
+Atlantis & Treasure Stages Only!!
+Yay
+No Way
+3. Fish Swarm During Fever Mode
+A Fish Swarm jackpot during Fever Mode confirms a Fever continuation!!"
 "COMMON";"03097.TM2.png";"大当りラウンド
 マリンちゃん
 ラッキー
@@ -407,7 +760,15 @@ STEP4 魚群予告
 プレミアム
 ゴーゴープレミアム。まだまだいくぞー
 サム系リーチで大当りすれば、大当りラウンド中にもサムが出現!!
-確变图柄";
+確变图柄";"Jackpot Round
+Marine
+Lucky
+During the jackpot, Marine and the fish swim out to greet you!!
+Sam
+Premium
+Go-Go Premium. We're not done yet.
+If you hit the jackpot on a Sam-type Reach, Sam will also appear during the jackpot rounds!!
+Fever Symbols"
 "COMMON";"03098.TM2.png";"おめでとー。大久保麻梨子です。よろしくね。
 ミスマリンちゃん
 プレミアム
@@ -417,16 +778,31 @@ STEP4 魚群予告
 スーバープレミアム
 グレイトラッキー
 大当りが ?? 回以上連続すれば、ミスマリンちゃん3人でお出迎え!!
-通常図柄";
-"COMMON";"03099.TM2.png";"Pamphlets back cover.";
+通常図柄";"Congratulations! I’m Mariko Okubo. Nice to meet you.
+Miss Marine
+Premium
+If you hit the jackpot ? times in a row or more, Miss Marine (Mariko Okubo) will appear!!
+Miss Marine
+All Cast
+Super Premium
+Great Lucky
+If you hit the jackpot ?? times in a row or more, all three Miss Marines will come out to greet you!!
+Normal Symbols"
+"COMMON";"03099.TM2.png";"Pamphlets back cover.";"Pamphlet's Back Cover"
 "COMMON";"03131.TM2.png";"銀玉殺人事件
 パチプロ風雲録4
 はじめから
-つづきから";
+つづきから";"The Silver Ball Murder Case
+Pachi-Pro Chronicles 4
+New Game
+Load Game"
 "COMMON";"03160.TM2.png";"銀玉殺人事件
 パチプロ風雲録4
 キャスト
-スタッフ";
+スタッフ";"The Silver Ball Murder Case
+Pachi-Pro Chronicles 4
+Cast
+Staff"
 "COMMON";"03161.TM2.png";"須藤 真幸
 村瀬 杏子
 井原 治郎
@@ -463,7 +839,43 @@ STEP4 魚群予告
 製作協力
 協力
 製作最高責任者
-統括";
+統括";"Masayuki Sudo
+Kyoko Murase
+Jiro Ihara
+Noriko Shiraishi
+Shogo Katayama
+Haruko Nonoyama
+Hiromichi Iwata
+Takao Mikami
+Ryusuke Kurosaki
+Yuki Misawa
+Toru Asakura
+Aya Katsuragi
+Chief Director / Scriptwriter
+Technical Director
+Video Engineer
+Choreographer / Fight Choreographer
+Costumes / Wigs
+Interior Set Design
+Production Assistant
+Stage Design
+Illustrator
+Prologue Lead / Director
+Scenario Structure
+Planning
+Assistant Director
+Video Director
+Voice Director
+Assistant Voice Director
+Recording
+Audio Editor
+Music
+Public Relations
+Sales
+Production Cooperation
+Special Thanks
+Executive Producer
+General Supervisor"
 "COMMON";"03162.TM2.png";"戸崎 竜也
 坂戸 こまつな
 緒方 賢一
@@ -497,7 +909,40 @@ STEP4 魚群予告
 junjun
 MOCHI
 仲国 博士
-九十条 一馬";
+九十条 一馬";"Tatsuya Tozaki
+Komatsuna Sakato
+Kenichi Ogata
+Emi Kobayashi
+Hisafumi Oda
+Iruka Nanami
+Takamasa Ohashi
+Toshifumi Maeda
+Yasuhiro Fujiwara
+Kotomi Yamakawa
+Yuu Katsuma
+Komina Matsushita
+Takaha-Sha
+Yoshiyuki Yoshita
+Ginta Ito
+Miyabi Tashiro
+Akihiro Toda
+Hidekazu Kawaguchi
+Yoshio Hatakenaka
+Keng Hayashi
+Yumekurazo Shibayama
+Hidemaro Jurokusei
+Seiji Yamada
+Hiroyuki Yoshitagawa
+Ryosuke Okubo
+Takashi Murata
+Minko
+Minoru Yoshita (Minorun)
+Mayumin
+Goro Matsuo (Gororin)
+junjun
+MOCHI
+Dr. Nakakuni
+Kazuma Kujo"
 "COMMON";"03163.TM2.png";"東 大黒 (ユーエスピー) ポールトゥウィン 株式会社
 入江 泰枝 (ユーエスピー) 田中 健太郎 (SMC)
 松本 直行 (ハイブライト) 中村 義隆 (SMC)
@@ -505,7 +950,14 @@ MOCHI
 MASUDA 82Kg
 (マルチメディアサウンド サブリナ)
 アイレムソフトウェアエンジニアリング株式会社
-ヤマモト ヒロフミ";
+ヤマモト ヒロフミ";"Daikoku Azuma (USP) Pole to Win Co., Ltd.
+Yasue Irie (USP) Kentaro Tanaka (SMC)
+Naoyuki Matsumoto (Highbright) Yoshitaka Nakamura (SMC)
+Hiroshi Ebihara (USP) Digital Zero Co., Ltd.
+Kazuhiro Masuda (MASUDA 82Kg)
+(Multimedia Sound Sabrina)
+Irem Software Engineering Co., Ltd.
+Kanehira Yamamoto"
 "COMMON";"03164.TM2.png";"藤江 裕子
 川岸 芳法
 大塚 哲也
@@ -513,7 +965,14 @@ MASUDA 82Kg
 渋谷 義輝
 杉本 なるみ
 神田 尚建
-勝本 泰史";
+勝本 泰史";"Yuko Fujie
+Yoshinori Kawagishi
+Tetsuya Otsuka
+Yosuke Nakajima
+Yoshiteru Shibuya
+Narumi Sugimoto
+Naotake Kanda
+Yasushi Katsumoto"
 "COMMON";"03323.TM2.png";":選択
 :決定
 :戻る
@@ -524,14 +983,30 @@ MASUDA 82Kg
 :戻る
 :選択
 :戻る
-:次へ";
+:次へ";":Select
+:Confirm
+:Back
+:Back
+:Select
+:Confirm
+:Reset
+:Back
+:Select
+:Back
+:Next"
 "COMMON";"03324.TM2.png";"出玉
 収支
 回転
 リーチ
 大当り
 大当り履歴
-初期化";
+初期化";"Payout
+Balance
+Spins
+Reach
+Jackpot
+Jackpot History
+Reset"
 "COMMON";"03325.TM2.png";"交換率
 2.5円
 3円
@@ -582,14 +1057,67 @@ SE
 盤面の明るさ
 暗い
 普通
-明るい";
+明るい";"Exchange Rate
+2.5 yen
+3 yen
+4 yen
+Ball Rental Unit
+500 yen
+1,000 yen
+Auto Card Purchase
+On
+Off
+Hold Stop
+3
+4
+Off
+Reach Stop
+On
+Off
+Auto Zoom
+On
+Off
+Jackpot Skip
+On
+Off
+High-Speed Mode
+Fast
+Faster
+Off
+Payout Policy
+Single Payout
+Unlimited
+Vibration
+On
+Off
+Sound Settings
+Stereo
+Mono
+BGM
+Low
+Medium
+High
+SE
+Low
+Medium
+High
+Screen Brightness
+Dark
+Normal
+Bright"
 "COMMON";"03330.TM2.png";"共通
 ラグーン
 アトランティス
 トレジャー
 M56
 M2
-全て";
+全て";"Standard
+Lagoon
+Atlantis
+Treasure
+M56
+M2
+All"
 "COMMON";"03332.TM2.png";"データ
 グラフ
 共通
@@ -610,13 +1138,37 @@ M2
 7
 8
 9
-10";
+10";"Data
+Graph
+Standard
+Normal
+Coral Reef
+Twenty-God Statue
+Treasure Mountain
+Black Current
+Marine
+Premium
+Jackpot Symbols
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
 "COMMON";"03345.TM2.png";"通常
-確変";
+確変";"Normal
+Fever"
 "COMMON";"03351.TM2.png";"通常攻略
 はじめから
 データ比較
-つづきから";
+つづきから";"Normal Mode
+New Game
+Data Comparison
+Load Game"
 "COMMON";"03356.TM2.png";"基本スペック
 大当り確率
 通常時 1/369.5
@@ -626,7 +1178,16 @@ M2
 ラウンド 15ラウンド
 カウント 9カウント
 確変図柄 1 3 5 7 9
-確変突入率 60%";
+確変突入率 60%";"Basic Specifications
+Jackpot Probability
+Normal Mode: 1/369.5
+Fever Mode: 1/52.786
+Prize Balls: 3, 5, 14
+Average Payout: Approx. 1,700 balls
+Rounds: 15
+Counts: 9
+Fever Symbols: 1, 3, 5, 7, 9
+Fever Entry Rate: 60%"
 "COMMON";"03357.TM2.png";"基本スペック
 大当り確率
 通常時 1/329.5
@@ -636,12 +1197,24 @@ M2
 ラウンド 15ラウンド
 カウント 9カウント
 確変図柄 1 3 5 7 9
-確変突入率 50%";
+確変突入率 50%";"Basic Specifications
+Jackpot Probability
+Normal Mode: 1/329.5
+Fever Mode: 1/50.692
+Prize Balls: 3, 5, 15
+Average Payout: Approx. 1,900 balls
+Rounds: 15
+Counts: 9
+Fever Symbols: 1, 3, 5, 7, 9
+Fever Entry Rate: 50%"
 "COMMON";"03358.TM2.png";"M56、M2の攻略データを
-比較して確認できます。";
+比較して確認できます。";"You can compare and check the 
+strategy data for M56 and M2."
 "COMMON";"03359.TM2.png";"CR 大海物語 M56
 CR 大海物語 M2
-データ比較";
+データ比較";"CR Great Sea Story M56
+CR Great Sea Story M2
+Data Comparison"
 "COMMON";"03371.TM2.png";"実戦攻略
 ルール説明
 実戦攻略とは?
@@ -651,19 +1224,36 @@ CR 大海物語 M2
 プレゼント応募
 機種選択
 台選択
-攻略結果";
+攻略結果";"Challenge Mode
+How To Play
+What is Challenge Mode?
+Start Challenge
+Success / Failed
+Back
+Enter Giveaway
+Select Machine
+Select Seat
+Results"
 "COMMON";"03375.TM2.png";"攻略
-成功";
+成功";"Stage
+Cleared"
 "COMMON";"03376.TM2.png";"攻略
-失敗";
+失敗";"Stage
+Failed"
 "COMMON";"03502.TM2.png";"環境設定
 人物相関図
 アルバム
 主人公の状態
 推理
 地図
-持ち物";
-"COMMON";"03503.TM2.png";"每玉新聞";
+持ち物";"Options
+Character Relationship Chart
+Album
+Character Status
+Deduction
+Map
+Inventory"
+"COMMON";"03503.TM2.png";"每玉新聞";"Daily Ball News"
 "COMMON";"03507.TM2.png";":選択
 :決定
 :並べ替え
@@ -682,13 +1272,36 @@ CR 大海物語 M2
 :ページ送り
 :全体地図へ
 :機種データ切替
-:小物配置";
+:小物配置";":Select
+:Confirm
+:Sort
+:Back
+:Turn Page
+:Zoom In/Out
+:Data
+:Reset
+:Switch
+:Rotate
+:Rotate Left
+:Rotate Right
+:Details
+:Camera
+:Previous Page
+:Next Page
+:To Overall Map
+:Switch Machine Data
+:Place Accessories"
 "COMMON";"03508.TM2.png";"振動
 サウンド
 ボイス
 BGM
 SE
-盤面の明るさ";
+盤面の明るさ";"Vibration
+Sound
+Voice
+BGM
+SE
+Screen Brightness"
 "COMMON";"03509.TM2.png";"ON
 OFF
 ステレオ
@@ -697,10 +1310,18 @@ OFF
 明るい
 小さい
 普通
-暗い";
-"COMMON";"03510.TM2.png";"初期設定にもどす";
-"COMMON";"03511.TM2.png";"環境設定";
-"COMMON";"03512.TM2.png";"アルバム";
+暗い";"On
+Off
+Stereo
+High
+Mono
+Bright
+Low
+Normal
+Dark"
+"COMMON";"03510.TM2.png";"初期設定にもどす";"Restore Defaults"
+"COMMON";"03511.TM2.png";"環境設定";"Settings"
+"COMMON";"03512.TM2.png";"アルバム";"Album"
 "COMMON";"03514.TM2.png";"寝具
 机·棚
 イス
@@ -709,7 +1330,15 @@ OFF
 敷物
 壁掛け
 吊下げ
-カーテン";
+カーテン";"Bedding
+Desks/Shelves
+Chairs
+Small Items
+Ornaments
+Floor Coverings
+Wall Hangings
+Hanging Decor
+Curtains"
 "COMMON";"03515.TM2.png";"持ち物
 種名分状
 類前類能
@@ -719,41 +1348,74 @@ OFF
 玉
 新
 聞
-(1)";
+(1)";"Belongings
+Inventory
+Type Name Category Status
+Type Preview Abilities
+Placement
+Equip
+Daily
+Ball
+News
+(1)"
 "COMMON";"03536.TM2.png";"<パチプロ風雲録>
 主人公選択
 :選択
 :決定
-:戻る";
+:戻る";"<Pachi-Pro Chronicles>
+Select Character
+:Select
+:Confirm
+:Back"
 "COMMON";"03539.TM2.png";"男性
 女性
 決定
-戻る";
+戻る";"Male
+Female
+Confirm
+Back"
 "COMMON";"03540.TM2.png";"<パチプロ風雲録>
 :選択
 :ページ戻し
 :ページ送り
 :決定
-:戻る";
+:戻る";"<Pachi-Pro Chronicles>
+:Select
+:Previous Page
+:Next Page
+:Confirm
+:Back"
 "COMMON";"03541.TM2.png";"セーブ
-ロード";
+ロード";"Save
+Load"
 "COMMON";"03542.TM2.png";"1/2 ページ
-2/2ページ";
+2/2ページ";"Page 1/2
+Page 2/2"
 "COMMON";"03544.TM2.png";"主人公の状態
 (性別)
 (性別)
 男性
-女性";
+女性";"Character Status
+(Gender)
+(Gender)
+Male
+Female"
 "COMMON";"03545.TM2.png";"ステータス
-必殺技の選択";
+必殺技の選択";"Status
+Select Special Move"
 "COMMON";"03547.TM2.png";"パチプロ必殺技
 <セット中の必殺技 >
-<習得している必殺技>";
+<習得している必殺技>";"Pachi-Pro Special Moves
+Equipped Special Moves
+Learned Special Moves"
 "COMMON";"03548.TM2.png";":選択
 :決定
 : 推理決定
-:戻る";
-"COMMON";"03563.TM2.png";"推理";
+:戻る";":Select
+:Confirm
+:Deduce 
+:Back"
+"COMMON";"03563.TM2.png";"推理";"Deduction"
 "COMMON";"03569.TM2.png";"町内地図
 ~パチパラ町~
 ~大海町~
@@ -761,27 +1423,44 @@ OFF
 ~ウミネコ海岸~
 全体地図
 ???
-北";
+北";"Local Map
+PachiPara Town
+Great Sea Town
+Payout Town
+Sea Cat Coast
+Overall Map
+???
+North"
 "COMMON";"03574.TM2.png";"銀玉川
-大海湾";
-"COMMON";"03575.TM2.png";"銀玉川";
-"COMMON";"03576.TM2.png";"銀玉川";
-"COMMON";"03577.TM2.png";"大海湾";
+大海湾";"Silver Ball River
+Great Sea Bay"
+"COMMON";"03575.TM2.png";"銀玉川";"Silver Ball River"
+"COMMON";"03576.TM2.png";"銀玉川";"Silver Ball River"
+"COMMON";"03577.TM2.png";"大海湾";"Great Sea Bay"
 "COMMON";"03579.TM2.png";"銀玉川
-大海湾";
-"COMMON";"03581.TM2.png";"大海湾";
+大海湾";"Silver Ball River
+Great Sea Bay"
+"COMMON";"03581.TM2.png";"大海湾";"Great Sea Bay"
 "COMMON";"03582.TM2.png";"北
 大海湾
-銀玉川";
+銀玉川";"North
+Great Sea Bay
+Silver Ball River"
 "COMMON";"03583.TM2.png";"北
 大海湾
-銀玉川";
+銀玉川";"North
+Great Sea Bay
+Silver Ball River"
 "COMMON";"03584.TM2.png";"北
 大海湾
-銀玉川";
+銀玉川";"North
+Great Sea Bay
+Silver Ball River"
 "COMMON";"03585.TM2.png";"北
 大海湾
-銀玉川";
+銀玉川";"North
+Great Sea Bay
+Silver Ball River"
 "COMMON";"03587.TM2.png";"種類
 名前
 分類
@@ -789,43 +1468,72 @@ OFF
 種類
 名前
 分類
-質請け額";
+質請け額";"Type
+Name
+Category
+Price
+Type
+Name
+Category
+Redemption Cost"
 "COMMON";"03588.TM2.png";":選択
 :決定
 :戻る
 :選択
 :決定
 :並べ替え
-:戻る";
+:戻る";":Select
+:Confirm
+:Back
+:Select
+:Confirm
+:Sort
+:Back"
 "COMMON";"03590.TM2.png";"分類
-値段";
+値段";"Category
+Price"
 "COMMON";"03593.TM2.png";"<パチプロ風雲録>
-クーラーボックスの中身";
+クーラーボックスの中身";"Pachi-Pro Chronicles
+Cooler Box Contents"
 "COMMON";"03597.TM2.png";"分類
 種類
 名前
 分類
-状態";
-"COMMON";"03604.TM2.png";"推理完了";
+状態";"Category
+Type
+Name
+Category
+Status"
+"COMMON";"03604.TM2.png";"推理完了";"Deduction Complete"
 "COMMON";"03610.TM2.png";"<パチプロ風雲録>
 人物相関図
-~銀玉殺人事件~";
+~銀玉殺人事件~";"Pachi-Pro Chronicles
+Character Relationship Chart
+The Silver Ball Murder Case"
 "COMMON";"03611.TM2.png";":詳細
 :選択
 :決定
 :戻る
-:戻る";
+:戻る";":Details
+:Select
+:Confirm
+:Back
+:Back"
 "COMMON";"03750.TM2.png";"銀玉川
-大海湾";
+大海湾";"Silver Ball River
+Great Sea Bay"
 "COMMON";"03751.TM2.png";"銀玉川
-大海湾";
-"COMMON";"03752.TM2.png";"銀玉川";
-"COMMON";"03753.TM2.png";"銀玉川";
-"COMMON";"03755.TM2.png";"大海湾";
-"COMMON";"03756.TM2.png";"大海湾";
+大海湾";"Silver Ball River
+Great Sea Bay"
+"COMMON";"03752.TM2.png";"銀玉川";"Silver Ball River"
+"COMMON";"03753.TM2.png";"銀玉川";"Silver Ball River"
+"COMMON";"03755.TM2.png";"大海湾";"Great Sea Bay"
+"COMMON";"03756.TM2.png";"大海湾";"Great Sea Bay"
 "M_00_09";"03054.TM2.png";"CR大海物語M56
 CR大海物語M2
-PRESS START";
+PRESS START";"CR Great Sea M56
+CR Great Sea M2
+Press Start"
 "M_00_09";"03062.TM2.png";":選択
 :決定
 :戻る
@@ -839,20 +1547,44 @@ PRESS START";
 :決定
 :確認
 :戻る
-:戻る";
+:戻る";":Select
+:Confirm
+:Back
+:Select
+:Back
+:Next Page
+:Zoom In
+:Zoom Out
+:Back
+:Select
+:Check
+:Confirm
+:Back
+:Back"
 "M_00_09";"03063.TM2.png";"タイトル背景
 フイギユアビユー
 液晶ビユー
 パンフレツト
 サウンド
-ムービー";
+ムービー";"Title Background
+Figure Viewer
+LCD Viewer
+Pamphlets
+Sounds
+Movies"
 "M_00_09";"03066.TM2.png";"リーチデモ
 大当りデモ
 演出デモ
 自動回転
 終了
 パチプロ風雲録
-大海物語";
+大海物語";"Reach Demo
+Jackpot Demo
+Special Effects Demo
+Auto Spin
+Quit
+Great Sea Story
+Pachi-Pro Chronicles"
 "M_00_09";"03067.TM2.png";"ラグーン
 プレミアム1
 アトランティス
@@ -871,9 +1603,28 @@ PRESS START";
 エンディング5
 エンディング6
 通常時
-確变時";
+確变時";"Lagoon
+Premium 1
+Atlantis
+Premium 2
+Treasure
+Title
+Marine 1
+Ending 1
+Marine 2
+Ending 2
+Marine 3
+Ending 3
+Sam 1
+Ending 4
+Sam 2
+Ending 5
+Ending 6
+Normal Mode
+Fever Mode"
 "M_00_09";"03068.TM2.png";"大当り
-はずれ";
+はずれ";"Jackpot
+Miss"
 "M_00_09";"03080.TM2.png";"ノーマル
 ノーマル+泡予告
 ノーマル+2段階
@@ -888,7 +1639,21 @@ PRESS START";
 ダイビング+魚群予告
 ダイビング+赤魚群予告
 マリンちゃん+泡予告
-マリンちゃん+魚群予告";
+マリンちゃん+魚群予告";"Normal
+Normal + Bubble Teaser
+Normal + Two-Stage
+Coral Reef + Bubble Teaser
+Coral Reef + Fish Swarm Teaser
+Muscle Coral Reef + Bubble Teaser
+Muscle Coral Reef + Fish Swarm Teaser
+Muscle Coral Reef + Red Fish Swarm Teaser
+Black Current + Bubble Teaser
+Black Current + Fish Swarm Teaser
+Diving + Bubble Teaser
+Diving + Fish Swarm Teaser
+Diving + Red Fish Swarm Teaser
+Marine + Bubble Teaser
+Marine + Fish Swarm Teaser"
 "M_00_09";"03081.TM2.png";"マリンちゃん+2段階
 マリンちゃん(イヤイヤ)
 ポージング+泡予告
@@ -904,7 +1669,22 @@ PRESS START";
 女神像+クジラ予告
 マッスル女神像+イルカ予告
 マッスル女神像+クジラ予告
-黒潮+イルカ予告";
+黒潮+イルカ予告";"Marine + Two-Stage
+Marine (Reclutant)
+Posing + Bubble Teaser
+Posing + Fish Swarm Teaser
+Posing + Red Fish Swarm Teaser
+Off-Screen Premium
+Premium Shuffle Reach
+Original Sea Story Sound Premium
+Kaboom Premium
+Rainbow Flashing Teaser
+Normal + Dolphin Teaser
+Goddess Statue + Dolphin Teaser
+Goddess Statue + Whale Teaser
+Muscle Goddess Statue + Dolphin Teaser
+Muscle Goddess Statue + Whale Teaser
+Black Current + Dolphin Teaser"
 "M_00_09";"03082.TM2.png";"黒潮+クジラ予告
 ダイビング+イルカ予告
 ダイビング+クジラ予告
@@ -920,7 +1700,22 @@ PRESS START";
 ガイコツ船長+泡音予告
 ガイコツ船長+泡予告
 ガイコツ船長+クラゲ群予告
-ガイコツ船長+魚群予告";
+ガイコツ船長+魚群予告";"Black Current + Whale Teaser
+Diving + Dolphin Teaser
+Diving + Whale Teaser
+Marine + Dolphin Teaser
+Marine + Whale Teaser
+Posing + Dolphin Teaser
+Posing + Whale Teaser
+Normal + Bubble Sound Teaser
+Treasure Mountain + Bubble Sound Teaser
+Treasure Mountain + Bubble Teaser
+Treasure Mountain + Jellyfish Swarm Teaser
+Treasure Mountain + Fish Swarm Teaser
+Skeleton Captain + Bubble Sound Teaser
+Skeleton Captain + Bubble Teaser
+Skeleton Captain + Jellyfish Swarm Teaser
+Skeleton Captain + Fish Swarm Teaser"
 "M_00_09";"03083.TM2.png";"黒潮+泡音予告
 黒潮+クラゲ群予告
 ダイビング+泡音予告
@@ -933,18 +1728,37 @@ PRESS START";
 ブレミアムシャッターチャンス+魚群予告
 ガイコツ船長+赤魚群予告
 ダイビング+赤魚群
-プレミアムシトッターチャンス+赤魚群予告";
-"M_00_09";"03300.TM2.png";"チャンスタイム";
+プレミアムシトッターチャンス+赤魚群予告";"Black Current + Bubble Sound Teaser
+Black Current + Jellyfish Swarm Teaser
+Diving + Bubble Sound Teaser
+Diving + Jellyfish Swarm Teaser
+Marine + Bubble Sound Teaser
+Marine + Jellyfish Swarm Teaser
+Premium Shutter Chance + Bubble Sound Teaser
+Premium Shutter Chance + Bubble Teaser
+Premium Shutter Chance + Jellyfish Swarm Teaser
+Premium Shutter Chance + Fish Swarm Teaser
+Skeleton Captain + Red Fish Swarm Teaser
+Diving + Red Fish Swarm
+Premium Shutter Chance + Red Fish Swarm Teaser"
+"M_00_09";"03300.TM2.png";"チャンスタイム";"Chance Time"
 "M_00_09";"03305.TM2.png";"大当りスキップ中
-ただ今、プレイ中";
+ただ今、プレイ中";"Skipping Jackpot
+Now Playing"
 "M_00_09";"03306.TM2.png";"玉分布画面
 入賞率表示画面
-表示物オプション";
+表示物オプション";"Ball Distribution
+Win Rate Display
+Display Options"
 "M_00_09";"03307.TM2.png";"ハンドル
 情報ウィンドウ
 ドル箱
 連チャンウィンドウ
-チャンスタイムウィンドウ";
+チャンスタイムウィンドウ";"Handle
+Info Display
+Ball Box
+Streak Counter Display
+Chance Time Display"
 "M_00_09";"03322.TM2.png";"/
 項目選択
 選択
@@ -983,14 +1797,58 @@ M2
 1/63.1
 1/50
 1/10
-1/5";
+1/5";"/
+Select Item
+Select
+Confirm
+Next
+Back
+Adjust Machine
+Check Machine
+Probability Settings
+Data Display
+Replace
+1/1
+Options
+Edit
+Change Machine
+Change Model
+CR
+Great Sea Story
+M56
+M2
+Adjust Pins
+Adjust Tilt
+Good
+Normal
+Bad
+Manual
+None
+Loose
+Tight
+Check Pins
+Check Tilt
+Exit
+1/315.5
+1/200
+1/150
+1/63.1
+1/50
+1/10
+1/5"
 "M_00_09";"03324.TM2.png";"出玉
 収支
 回転
 リーチ
 大当り
 大当り履歴
-初期化";
+初期化";"Payout
+Balance
+Spins
+Reach
+Jackpot
+Jackpot History
+Reset"
 "M_00_09";"03325.TM2.png";"交換率
 2.5円
 3円
@@ -1041,16 +1899,70 @@ SE
 盤面の明るさ
 暗い
 普通
-明るい";
+明るい";"Exchange Rate
+2.5 yen
+3 yen
+4 yen
+Ball Rental Unit
+500 yen
+1,000 yen
+Auto Card Purchase
+On
+Off
+Hold Stop
+3
+4
+Off
+Reach Stop
+On
+Off
+Auto Zoom
+On
+Off
+Jackpot Skip
+On
+Off
+High-Speed Mode
+Fast
+Faster
+Off
+Payout Policy
+Single Payout
+Unlimited
+Vibration
+On
+Off
+Sound Settings
+Stereo
+Mono
+BGM
+Low
+Medium
+High
+SE
+Low
+Medium
+High
+Screen Brightness
+Dark
+Normal
+Bright"
 "M_00_09";"03327.TM2.png";"はい
-いいえ";
+いいえ";"Yes
+No"
 "M_00_09";"03330.TM2.png";"共通
 ラグーン
 アトランティス
 トレジャー
 M56
 M2
-全て";
+全て";"Standard
+Lagoon
+Atlantis
+Treasure
+M56
+M2
+All"
 "M_00_09";"03332.TM2.png";"データ
 グラフ
 共通
@@ -1071,14 +1983,39 @@ M2
 7
 8
 9
-10";
+10";"Data
+Graph
+Standard
+Normal
+Coral Reef
+Twenty-God Statue
+Treasure Mountain
+Black Current
+Marine
+Premium
+Jackpot Symbols
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
 "M_00_09";"03345.TM2.png";"通常
-確変";
+確変";"Normal
+Fever"
 "M_00_09";"03372.TM2.png";"本日
 スタート
 前日
 総回転数
-前々日";
+前々日";"Today
+Start
+Yesterday
+Total Spins
+The Day Before Yesterday"
 "M_00_09";"03507.TM2.png";":選択
 :決定
 :並べ替え
@@ -1097,30 +2034,64 @@ M2
 :ページ送り
 :全体地図へ
 :機種データ切替
-:小物配置";
+:小物配置";":Select
+:Confirm
+:Sort
+:Back
+:Turn Page
+:Zoom In/Out
+:Data
+:Reset
+:Switch
+:Rotate
+:Rotate Left
+:Rotate Right
+:Details
+:Camera
+:Previous Page
+:Next Page
+:To Overall Map
+:Switch Machine Data
+:Place Accessories"
 "M_00_09";"03518.TM2.png";"大当り中
-確変中";
+確変中";"Jackpot Active
+Fever Mode"
 "M_00_09";"03533.TM2.png";"台確認
 儿一儿確認
 オプション
 終了
 釘確認
-ネカセ確認";
-"M_00_09";"03534.TM2.png";"チャンスタイム";
+ネカセ確認";"Machine
+Rules
+Options
+Quit
+Pins
+Tilt"
+"M_00_09";"03534.TM2.png";"チャンスタイム";"Chance Time"
 "M_00_09";"03535.TM2.png";"勝負開始!!
 勝負あり!!
 大勝利!!
-...敗北";
+...敗北";"Match Start!!
+Match Over!!
+Great Victory!!
+...Defeated"
 "M_00_09";"03595.TM2.png";"必殺技
 ボタン
 必殺技名
-消費量";
-"M_00_09";"03598.TM2.png";":連打";
+消費量";"Special Moves
+Button
+Special Move Name
+Gauge Cost"
+"M_00_09";"03598.TM2.png";":連打";":Button Mashing"
 "M_00_09";"03770.TM2.png";"ハンドル
 情報ウインドウ
 制限時間表示
 勝負状況表示
-チャンスタイムウィンドウ";
+チャンスタイムウィンドウ";"Handle
+Info Display
+Timer
+Match Status
+Chance Time Display"
 "M_00_09";"03771.TM2.png";"保留時打止め
 3
 4
@@ -1148,11 +2119,41 @@ SE
 盤面の明るさ
 暗い
 普通
-明るい";
+明るい";"Hold Stop
+3
+4
+Off
+Reach Stop
+On
+Off
+Auto Zoom
+On
+Off
+Vibration
+On
+Off
+Sound Settings
+Stereo
+Mono
+BGM
+Low
+Medium
+High
+SE
+Low
+Medium
+High
+Screen Brightness
+Dark
+Normal
+Bright"
 "M_01_01";"03160.TM2.png";"銀玉殺人事件
 パチプロ風雲録4
 キャスト
-スタッフ";
+スタッフ";"The Silver Ball Murder Case
+Pachi-Pro Chronicles 4
+Cast
+Staff"
 "M_01_01";"03161.TM2.png";"須藤 真幸
 村瀬 杏子
 井原 治郎
@@ -1189,7 +2190,43 @@ SE
 製作協力
 協力
 製作最高責任者
-統括";
+統括";"Masayuki Sudo
+Kyoko Murase
+Jiro Ihara
+Noriko Shiraishi
+Shogo Katayama
+Haruko Nonoyama
+Hiromichi Iwata
+Takao Mikami
+Ryusuke Kurosaki
+Yuki Misawa
+Toru Asakura
+Aya Katsuragi
+Chief Director / Scriptwriter
+Technical Director
+Video Engineer
+Choreographer / Fight Choreographer
+Costumes / Wigs
+Interior Set Design
+Production Assistant
+Stage Design
+Illustrator
+Prologue Lead / Director
+Scenario Structure
+Planning
+Assistant Director
+Video Director
+Voice Director
+Assistant Voice Director
+Recording
+Audio Editor
+Music
+Public Relations
+Sales
+Production Cooperation
+Special Thanks
+Executive Producer
+General Supervisor"
 "M_01_01";"03162.TM2.png";"戸崎 竜也
 坂戸 こまつな
 緒方 賢一
@@ -1223,7 +2260,40 @@ SE
 junjun
 MOCHI
 仲国 博士
-九十条 一馬";
+九十条 一馬";"Tatsuya Tozaki
+Komatsuna Sakato
+Kenichi Ogata
+Emi Kobayashi
+Hisafumi Oda
+Iruka Nanami
+Takamasa Ohashi
+Toshifumi Maeda
+Yasuhiro Fujiwara
+Kotomi Yamakawa
+Yuu Katsuma
+Komina Matsushita
+Takaha-Sha
+Yoshiyuki Yoshita
+Ginta Ito
+Miyabi Tashiro
+Akihiro Toda
+Hidekazu Kawaguchi
+Yoshio Hatakenaka
+Keng Hayashi
+Yumekurazo Shibayama
+Hidemaro Jurokusei
+Seiji Yamada
+Hiroyuki Yoshitagawa
+Ryosuke Okubo
+Takashi Murata
+Minko
+Minoru Yoshita (Minorun)
+Mayumin
+Goro Matsuo (Gororin)
+junjun
+MOCHI
+Dr. Nakakuni
+Kazuma Kujo"
 "M_01_01";"03163.TM2.png";"東 大黒 (ユーエスピー) ポールトゥウィン 株式会社
 入江 泰枝 (ユーエスピー) 田中 健太郎 (SMC)
 松本 直行 (ハイブライト) 中村 義隆 (SMC)
@@ -1231,7 +2301,14 @@ MOCHI
 MASUDA 82Kg
 (マルチメディアサウンド サブリナ)
 アイレムソフトウェアエンジニアリング株式会社
-ヤマモト ヒロフミ";
+ヤマモト ヒロフミ";"Daikoku Azuma (USP) Pole to Win Co., Ltd.
+Yasue Irie (USP) Kentaro Tanaka (SMC)
+Naoyuki Matsumoto (Highbright) Yoshitaka Nakamura (SMC)
+Hiroshi Ebihara (USP) Digital Zero Co., Ltd.
+Kazuhiro Masuda (MASUDA 82Kg)
+(Multimedia Sound Sabrina)
+Irem Software Engineering Co., Ltd.
+Kanehira Yamamoto"
 "M_01_01";"03164.TM2.png";"藤江 裕子
 川岸 芳法
 大塚 哲也
@@ -1239,28 +2316,53 @@ MASUDA 82Kg
 渋谷 義輝
 杉本 なるみ
 神田 尚建
-勝本 泰史";
+勝本 泰史";"Yuko Fujie
+Yoshinori Kawagishi
+Tetsuya Otsuka
+Yosuke Nakajima
+Yoshiteru Shibuya
+Narumi Sugimoto
+Naotake Kanda
+Yasushi Katsumoto"
 "M_01_01";"03567.TM2.png";"<パチプロ風雲録>
 <姓>
-<名>";
+<名>";"Pachi-Pro Chronicles
+Last Name
+First Name"
 "M_01_01";"03768.TM2.png";"俺の名前は…
-私の名前は…";
+私の名前は…";"My name is...
+My name is..."
 "M_01_01";"03769.TM2.png";":選択
 :決定
 :一文字削除
 :確定
 :選択
 :決定 
-:戻る";
+:戻る";":Select
+:Confirm
+:Delete
+:Finalize
+:Select
+:Confirm
+:Back"
 "ROOT";"03045.TM2.png";"パチパラ12
 ~大海と夏の思い出~
 銀玉殺人事件
-パチプロ風雲録4";
-"ROOT";"03578.TM2.png";"~ PAUSE ~";
+パチプロ風雲録4";"PachiPara 12
+Memories of the Sea and Summer
+The Silver Ball Murder Case
+Pachi-Pro Chronicles 4"
+"ROOT";"03578.TM2.png";"~ PAUSE ~";"PAUSED"
 "ROOT";"03606.TM2.png";":選択
 :決定
 :やめる 
 :やめる
 :次へ
 :やめる
-:次へ";
+:次へ";":Select
+:Confirm
+:Cancel
+:Cancel
+:Next
+:Cancel
+:Next"
