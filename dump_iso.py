@@ -401,6 +401,14 @@ def cleanup_m_00_09():
 
 
 def main():
+    message = "Type the number of the command and confirm with ENTER key.\n" \
+              "1: Dump both ISO and game assets.\n" \
+              "2: Dump only ISO.\n"
+    print(message)
+    while True:
+        command = input("Command: ").strip()
+        if command in ["1", "2"]:
+            break
     # if no path argument search for iso
     if len(sys.argv) == 1:
         work_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -413,51 +421,52 @@ def main():
         sys.exit()
     if iso_path:
         dump_iso(iso_path)
+        file_list = get_file_list(dump_path)
+        dat_fat_dict = get_dat_fat_dict(file_list)
+        save_dat_fat_dict(dat_fat_dict)
+        # copy clean data to dirty directory
+        def copy_clean_data():
+            print("\nMaking a copy of clean dump.")
+            for entry in file_list:
+                directory = os.path.dirname(os.path.relpath(entry, dump_path))
+                directory = dirty_path + directory + "/" if directory else dirty_path 
+                file = os.path.basename(entry)
+                if not os.path.isdir(directory):
+                    os.makedirs(directory)
+                with open(entry, 'rb') as clean, open(directory + file, 'wb') as dirty:
+                    dirty.write(clean.read())
+        copy_clean_data()
         print("\n")
     else:
         print("FAIL: correct ISO was not provided.")
         sys.exit()
-    # dump all relevant assets from extracted files
-    print("Dumping assets...")
-    file_list = get_file_list(dump_path)
-    dat_fat_dict = get_dat_fat_dict(file_list)
-    save_dat_fat_dict(dat_fat_dict)
-    # extracting data from .DAT files (TM2s, FONT, pachinko bitmaps)
-    for entry in dat_fat_dict.keys():
-        print("Extracting contents from " + entry)
-        container_file = open(entry, 'rb')
-        for item in dat_fat_dict[entry].keys():
-            file_name = os.path.basename(item)
-            offset = dat_fat_dict[entry][item]["file_offset"]
-            size = dat_fat_dict[entry][item]["file_size"]
-            # TM2s
-            if file_name.rsplit(".")[-1].upper() == "TM2":
-                if file_name.rsplit(".")[0] in tm2_whitelist:
-                    extract_tm2_graphics(container_file, file_name, offset, size)
-                else:
-                    continue
-            # FONTALL.DAT
-            elif file_name == "FONTALL.DAT":
-               extract_font(container_file, file_name, offset, size)
-            # pachinko bitmaps EXCHR1.BIN
-            elif file_name == "EXCHR1.BIN":
-                container_file.seek(offset)
-                extract_pachi_graphics(container_file.read(size))
-        container_file.close()
-    extract_sprite_data(file_list)
-    extract_strings(file_list)
-    # copy clean data to dirty directory
-    def copy_clean_data():
-        print("\nMaking a copy of clean dump.")
-        for entry in file_list:
-            directory = os.path.dirname(os.path.relpath(entry, dump_path))
-            directory = dirty_path + directory + "/" if directory else dirty_path 
-            file = os.path.basename(entry)
-            if not os.path.isdir(directory):
-                os.makedirs(directory)
-            with open(entry, 'rb') as clean, open(directory + file, 'wb') as dirty:
-                dirty.write(clean.read())
-    copy_clean_data()
+    if command == "1":
+        # dump all relevant assets from extracted files
+        print("Dumping assets...") 
+        # extracting data from .DAT files (TM2s, FONT, pachinko bitmaps)
+        for entry in dat_fat_dict.keys():
+            print("Extracting contents from " + entry)
+            container_file = open(entry, 'rb')
+            for item in dat_fat_dict[entry].keys():
+                file_name = os.path.basename(item)
+                offset = dat_fat_dict[entry][item]["file_offset"]
+                size = dat_fat_dict[entry][item]["file_size"]
+                # TM2s
+                if file_name.rsplit(".")[-1].upper() == "TM2":
+                    if file_name.rsplit(".")[0] in tm2_whitelist:
+                        extract_tm2_graphics(container_file, file_name, offset, size)
+                    else:
+                        continue
+                # FONTALL.DAT
+                elif file_name == "FONTALL.DAT":
+                   extract_font(container_file, file_name, offset, size)
+                # pachinko bitmaps EXCHR1.BIN
+                elif file_name == "EXCHR1.BIN":
+                    container_file.seek(offset)
+                    extract_pachi_graphics(container_file.read(size))
+            container_file.close()
+        extract_sprite_data(file_list)
+        extract_strings(file_list)
     print("FINISHED!")
 
 
