@@ -120,21 +120,21 @@
 		@@branch5:
 			jr ra
 			nop
-		; Values in this table tell width of char bitmap in pixels
-		; table indexed by ASCII value of a char
-		@vwf_table:
-			;         !  "  #  $  %  &  '  (  )  *  +  ,  -  .  / 
-			.byte  8, 8,12,14,14,14,14, 6,12,12,16,16, 8,16, 8,16
-			;      0  1  2  3  4  5  6  7  8  9  :  ;  <  =  >  ?
-			.byte 14,14,14,14,14,14,14,14,14,14, 8, 8,16,16,16,16
-			;      @  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O
-			.byte 16,14,14,14,14,14,14,14,14, 6,12,14,14,14,14,14
-			;      P  Q  R  S  T  U  V  W  X  Y  Z  [  \  ]  ^  _
-			.byte 14,14,14,14,14,14,14,14,14,14,14,12,14,12,14,16
-			;      `  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
-			.byte 12,14,14,14,14,14,14,14,14, 6,12,14, 6,14,14,14
-			;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F
-			.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
+	; Values in this table tell width of char bitmap in pixels
+	; table indexed by ASCII value of a char
+	@vwf_table:
+		;         !  "  #  $  %  &  '  (  )  *  +  ,  -  .  / 
+		.byte  8, 8,12,14,14,14,14, 6,12,12,16,16, 8,16, 8,16
+		;      0  1  2  3  4  5  6  7  8  9  :  ;  <  =  >  ?
+		.byte 14,14,14,14,14,14,14,14,14,14, 8, 8,16,16,16,16
+		;      @  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O
+		.byte 16,14,14,14,14,14,14,14,14, 6,12,14,14,14,14,14
+		;      P  Q  R  S  T  U  V  W  X  Y  Z  [  \  ]  ^  _
+		.byte 14,14,14,14,14,14,14,14,14,14,14,12,14,12,14,16
+		;      `  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
+		.byte 12,14,14,14,14,14,14,14,14, 6,12,14, 6,14,14,14
+		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F
+		.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
 .endarea
 	nop
 
@@ -148,12 +148,35 @@
 ; TODO!!!
 ; Dialogue window
 .org 0x00285640
-.word 80,352,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
-.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+	.word 80,352,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
 ; Cutscene choices box
 .org 0x002856D0
-.word 32,80,5,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
-.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+	.word 32,80,5,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+; Cutscene subtitles
+.org 0x00285730
+	.word 80,386,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+
+; Loading screen
+.org 0x00282360
+	.word 22,22,22,28 ; font x-scale, y-scale, x-spacing, y-spacing
+	.word 32,32 ; x-pos, y-pos
+;.org 0x001BC5B8
+;	addiu a2,zero,0x40 ; per string character limit
+
+; Game menu
+; 'Equiping Items' prompt
+.org 0x002A4570
+	.word 22,22,22,22 ; font x-scale, y-scale, x-spacing, y-spacing
+.org 0x00219408
+	addiu v1,zero,0xF0 ; x-offset
+; 'Equiping Items' choices
+.org 0x002A45A0
+	.word 20,20,20,20 ; font x-scale, y-scale, x-spacing, y-spacing
+.org 0x002194B0
+	addiu v0,zero,0xF0 ; x-offset
 
 ; Memory card messages fixes
 .org 0x001C6D10
@@ -161,10 +184,10 @@
 .org 0x001C6D18
 	ori a0,zero,0x1 ; Enables VWF for memory card messages.
 
-; Save/Load screen fixes
+; Save/Load screen
 ; Swap '[number] day' string to 'day [number]'
-.org 0x002DDE98
-.ascii "%s%3d"
+.org 0x002DDE98 
+	.ascii "%s%3d"
 .org 0x00259020
 	daddu a3,s0,zero
 	daddu a2,v0,zero
