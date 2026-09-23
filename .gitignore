@@ -4,3 +4,4 @@ __pycache__/
 *.iso
 *.xcf
 armips.py
+test.py
