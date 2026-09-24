@@ -2,15 +2,17 @@
 
 .open "dump\dirty\SLPS_255.74", 0x0 ; Open file and don't use memory offset
 
+@memory_offset equ 0xFFD00
+
 .macro write_sprite_data,width,height,x_start,y_start,x_end,y_end,x_screen_pos,y_screen_pos
 	.skip 2 ; skip writing texture id
 	.halfword width,height
 	.skip 2 ; zero separator
 	.halfword x_start,y_start
-	.if x_end == 0 || y_end == 0 ; If either endpoint = 0 ust add width to x_start and height to y_start
+	.if x_end == 0 || y_end == 0 ; If either endpoint = 0 just add width to x_start and height to y_start
 		.halfword width + x_start, height + y_start
-	.else ; Else write new endpoints
-		.halfword x_end,y_end
+	.else ; Else add new endpoints to start points
+		.halfword x_start + x_end, y_start + y_end
 	.endif
 	.halfword x_screen_pos,y_screen_pos
 .endmacro
@@ -18,13 +20,23 @@
 ; Use this as a template
 ; 03061 ; Name of the texture to keep track
 ; Background ; Description of what sprite it is
-.org 0x001B19F0; offset from sprite_dat.csv
+.org 0x001B19F0; offset from /graphics/tm2/sprite_data.csv
+	; width and height of the sprite as it will be rendered on screen
 	@@width			equ 408 ; width
 	@@height		equ 204 ; height
+	; start point of the sprite on texture sheet
 	@@x_start		equ 0	; x_start
 	@@y_start		equ 0	; y_start
-	@@x_end			equ 0	; x_end leave as 0 unless you want to stretch the texture to specific size
-	@@y_end			equ 0	; y_end leave as 0 unless you want to stretch the texture to specific size
+	; end point of the sprite on texture sheet
+	@@x_end			equ 0	; x_end
+	@@y_end			equ 0	; y_end
+	; Usually endpoints would be equal to width + x_start and height + y_start.
+	; So, if we write correct width and height values above, we can just leave endpoints at 0.
+	; Then the macro will take care of this addition
+	; However, if we want to scale sprite to an arbitrary size, we can write new width and height values.
+	; Then write actual width and height as values for end points.
+	; ex. @@width equ 204 :: @@height equ 102 :: @@x_end equ 408 :: @@y_end equ 204)
+	; Example above would make this sprite render at 0.5x scale.
 	@@x_screen_pos	equ 216	; x_scrn_off
 	@@y_screen_pos	equ 216 ; y_scrn_off
 ; Portion below should be the same for all sprites
@@ -54,9 +66,8 @@
 	@@y_screen_pos	equ 0
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
-
 ; Code changes ; Some sprites will need extra work to move them around
-.headersize 0xFFD00 ; Change offset to use memory addresses
+.headersize @memory_offset ; Change offset to use memory addresses
 .org 0x00250A94
 	addiu a0,a0,0x11A ; outline x-offset
 .org 0x002509F4
@@ -66,6 +77,7 @@
 .org 0x00250A4C
 	addiu v1,zero,0x1FE ; ball x-offset 3rd row
 .headersize 0x0 ; Return offset to 0
+
 
 ; 03075
 ; Atlantis
@@ -139,6 +151,7 @@
 	@@x_screen_pos	equ 436 - 4
 	@@y_screen_pos	equ 268
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
+
 ; Classroom
 .org 0x001B5E90
 	@@width			equ 88
