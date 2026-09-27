@@ -2,7 +2,7 @@
 
 .open "dump\dirty\SLPS_255.74", 0x0 ; Open file and don't use memory offset
 
-@memory_offset equ 0xFFD00
+@memory_offset equ 0xFFD00 ; Add this memory offset to file offset to get a ram address of sprite data
 
 .macro write_sprite_data,width,height,x_start,y_start,x_end,y_end,x_screen_pos,y_screen_pos
 	.skip 2 ; skip writing texture id
@@ -34,7 +34,7 @@
 	; So, if we write correct width and height values above, we can just leave endpoints at 0.
 	; Then the macro will take care of this addition
 	; However, if we want to scale sprite to an arbitrary size, we can write new width and height values.
-	; Then write actual width and height as values for end points.
+	; Then write actual width and height as values for endpoints.
 	; ex. @@width equ 204 :: @@height equ 102 :: @@x_end equ 408 :: @@y_end equ 204)
 	; Example above would make this sprite render at 0.5x scale.
 	@@x_screen_pos	equ 216	; x_scrn_off
@@ -46,7 +46,7 @@
 .org 0x001B1A50
 	@@width			equ 32
 	@@height		equ 32
-	@@x_start		equ 120 + 4 ; moved x_start 4 pixels to the right because I made outline wider
+	@@x_start		equ 120 + 6 ; moved x_start 6 pixels to the right because I made outline wider
 	@@y_start		equ 232
 	@@x_end			equ 0
 	@@y_end			equ 0
@@ -56,7 +56,7 @@
 
 ; Outline
 .org 0x001B1AB0
-	@@width			equ 120 + 4 ; made outline 4 pixels wider to get some more space
+	@@width			equ 120 + 6 ; made outline 6 pixels wider to get some more space
 	@@height		equ 32 ; can't really change height without big code changes
 	@@x_start		equ 0
 	@@y_start		equ 232
@@ -69,173 +69,183 @@
 ; Code changes ; Some sprites will need extra work to move them around
 .headersize @memory_offset ; Change offset to use memory addresses
 .org 0x00250A94
-	addiu a0,a0,0x11A ; outline x-offset
+	addiu a0,a0,0x119 ; outline x-offset
 .org 0x002509F4
-	addiu v1,zero,0xEE ; ball x-offset 1st row
+	addiu v1,zero,0xE7 ; ball x-offset 1st row
 .org 0x00250A20
-	addiu v1,zero,0x176 ; ball x-offset 2nd row
+	addiu v1,zero,0x16F ; ball x-offset 2nd row
 .org 0x00250A4C
-	addiu v1,zero,0x1FE ; ball x-offset 3rd row
+	addiu v1,zero,0x1F7 ; ball x-offset 3rd row
 .headersize 0x0 ; Return offset to 0
 
 
 ; 03075
 ; Atlantis
 .org 0x001B5C50
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 0
+	@@y_start		equ 180
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 300 - 4
-	@@y_screen_pos	equ 268
+	@@x_screen_pos	equ 300 - 19
+	@@y_screen_pos	equ 268 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Lagoon
 .org 0x001B5CB0
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 32
+	@@y_start		equ 200
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 300 - 4
-	@@y_screen_pos	equ 300
+	@@x_screen_pos	equ 300 - 19
+	@@y_screen_pos	equ 300 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Treasure
 .org 0x001B5D10
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 64
+	@@y_start		equ 160
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 300 - 4
-	@@y_screen_pos	equ 332
+	@@x_screen_pos	equ 300 - 19
+	@@y_screen_pos	equ 332 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 	
 ; Sam Bikini
 .org 0x001B5D70
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 96
+	@@y_start		equ 60
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 300 - 4
-	@@y_screen_pos	equ 364
+	@@x_screen_pos	equ 300 - 19
+	@@y_screen_pos	equ 364 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Sam Wetsuit
 .org 0x001B5DD0
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 128
+	@@y_start		equ 80
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 300 - 4
-	@@y_screen_pos	equ 396
+	@@x_screen_pos	equ 300 - 19
+	@@y_screen_pos	equ 396 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Sandy Beach
 .org 0x001B5E30
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 160
+	@@y_start		equ 100
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 436 - 4
-	@@y_screen_pos	equ 268
+	@@x_screen_pos	equ 436 - 19
+	@@y_screen_pos	equ 268 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Classroom
 .org 0x001B5E90
-	@@width			equ 88
-	@@height		equ 32
+	@@width			equ 105
+	@@height		equ 20
 	@@x_start		equ 0
-	@@y_start		equ 192
+	@@y_start		equ 120
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 436 - 4
-	@@y_screen_pos	equ 300
+	@@x_screen_pos	equ 436 - 19
+	@@y_screen_pos	equ 300 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Street Corner
 .org 0x001B5EF0
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
+	@@width			equ 105
+	@@height		equ 20
+	@@x_start		equ 0
 	@@y_start		equ 0
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 436 - 4
-	@@y_screen_pos	equ 332
+	@@x_screen_pos	equ 436 - 19
+	@@y_screen_pos	equ 332 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Pachinko Parlor
 .org 0x001B5F50
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
-	@@y_start		equ 32
+	@@width			equ 105
+	@@height		equ 20
+	@@x_start		equ 0
+	@@y_start		equ 20
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 436 - 4
-	@@y_screen_pos	equ 364
+	@@x_screen_pos	equ 436 - 19
+	@@y_screen_pos	equ 364 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Palm Tree
 .org 0x001B5FB0
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
-	@@y_start		equ 64
+	@@width			equ 105
+	@@height		equ 20
+	@@x_start		equ 0
+	@@y_start		equ 140
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 572 - 4
-	@@y_screen_pos	equ 268
+	@@x_screen_pos	equ 572 - 19
+	@@y_screen_pos	equ 268 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Bubbles
 .org 0x001B6010
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
-	@@y_start		equ 96
+	@@width			equ 86
+	@@height		equ 20
+	@@x_start		equ 90
+	@@y_start		equ 160
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 572 - 4
-	@@y_screen_pos	equ 300
+	@@x_screen_pos	equ 572 - 19
+	@@y_screen_pos	equ 300 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Beach Umbrella
 .org 0x001B6070
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
-	@@y_start		equ 128
+	@@width			equ 105
+	@@height		equ 20
+	@@x_start		equ 0
+	@@y_start		equ 40
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 572 - 4
-	@@y_screen_pos	equ 332
+	@@x_screen_pos	equ 572 - 19
+	@@y_screen_pos	equ 332 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 ; Ghost
 .org 0x001B60D0
-	@@width			equ 88
-	@@height		equ 32
-	@@x_start		equ 88
-	@@y_start		equ 160
+	@@width			equ 86
+	@@height		equ 20
+	@@x_start		equ 90
+	@@y_start		equ 180
 	@@x_end			equ 0
 	@@y_end			equ 0
-	@@x_screen_pos	equ 572 - 4
-	@@y_screen_pos	equ 364
+	@@x_screen_pos	equ 572 - 19
+	@@y_screen_pos	equ 364 + 6
 	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
-; ????? uses previous sprites positions, so no changes needed
+; ?????
+.org 0x001B6130
+	@@width			equ 86
+	@@height		equ 20
+	@@x_start		equ 90
+	@@y_start		equ 200
+	@@x_end			equ 0
+	@@y_end			equ 0
+	@@x_screen_pos	equ 0
+	@@y_screen_pos	equ 0
+	write_sprite_data @@width,@@height,@@x_start,@@y_start,@@x_end,@@y_end,@@x_screen_pos,@@y_screen_pos
 
 .close ; Close file
