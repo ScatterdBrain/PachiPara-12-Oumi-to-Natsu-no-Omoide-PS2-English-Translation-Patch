@@ -135,6 +135,92 @@
 		.byte 12,14,14,14,14,14,14,14,14, 6,12,14, 6,14,14,14
 		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F
 		.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
+	; Originally game just multiplies font size by amount of bytes in the string
+	; to figure out width of the bg graphics for some text boxes which doesn't work with VWF.
+	; Instead we going to count pixel width of every char.
+	@vwf_string_len:
+		; Specific boxes we target are name and choice box.
+		@@name_or_choice:
+			lui v1,0x0034
+			ori v1,v1,0x510
+			beq v1,s0,@@name_string_len
+			or v0,zero,s3
+			addiu v1,v1,0x520
+			beq v1,s0,@@choice_string_len
+			addiu v1,s0,-0xA78
+		; if neither - execute original code and return
+		@@pass:
+			lw v1,0x28(s0)
+			j 0x001E5374
+			lw v0,0x34(s0)
+		; if name - count length and return
+		@@name_string_len:
+			jal @@get_string_len
+			nop
+			lw v0,0x34(s0)
+			srl v0,v0,0x1
+			j 0x001E5378
+			addu v1,v1,v0 ; padding - sometimes name doesn't fit 
+		; if choice box - count length of all choices and pick the longest
+		@@choice_string_len:
+			addiu sp,sp,-0x10
+			sq zero,0x0(sp)
+			@@c_loop_start:
+				lw v0,0x0(v1)
+				beq v0,zero,@@c_loop_exit
+				addiu v1,v1,0x4
+				jal @@get_string_len
+				sw v1,0x0(sp)
+				lw v0,0x4(sp)
+				slt at,v1,v0
+				beql at,zero,@@save_branch
+				sw v1,0x4(sp)
+				@@save_branch:
+					beq zero,zero,@@c_loop_start
+					lw v1,0x0(sp)
+			@@c_loop_exit:
+				lw v1,0x4(sp)
+				lw v0,0x34(s0)
+				addu v1,v1,v0 ; padding - sometimes choice doesn't fit
+				j 0x001E5378
+				addiu sp,sp,0x10
+		; go over the string adding pixel width of every character to the counter
+		@@get_string_len: ; v0 pointer to a string, v1 string length
+			addiu sp,sp,-0x20
+			sd ra,0x10(sp)
+			lui v1,hi(org(@vwf_table))
+			sw a0,0x0(sp)
+			sw a1,0x4(sp)
+			sw a2,0x8(sp)
+			or a0,zero,zero
+			@@loop_start:
+				lbu a1,0x0(v0)
+				beq a1,zero,@@loop_exit
+				nop 
+				slti a2,a1,0x0080
+				beql a2,zero,@@branch2 ; if not ASCII width = 24
+				addiu a1,zero,0x18
+				addu a1,a1,v1
+				lb a1,lo(org(@vwf_table))-0x20(a1)
+				@@branch1:
+					add a0,a0,a1
+					beq zero,zero,@@loop_start
+					@@branch2:
+						addiu v0,v0,0x1
+						beq zero,zero,@@branch1
+						nop
+				@@loop_exit:
+					lw a1,0x34(s0)
+					mult a0,a0,a1
+					ori a1,a1,0x18
+					div a0,a1
+					lw a0,0x0(sp)
+					lw a1,0x4(sp)
+					lw a2,0x8(sp)
+					mflo v1
+					ld ra,0x10(sp)
+					jr ra
+					addiu sp,sp,0x20
 .endarea
 	nop
 
@@ -144,11 +230,47 @@
 .org 0x0015F668
 	jal @vwf_hack
 
+; Jump to VWF string length function
+.org 0x001E536C
+	j @vwf_string_len
+	nop 
+
+; Hack that increases amount of characters allowed for cutscene subtitles and  dialogue box
+; Game has per line pixel limit that doesn't work properly with vwf added
+.org 0x0015F4D0
+.area 0x30
+	lui v1,0x0033
+	ori v1,v1,0xFFF0
+	bne v1,s3,@@pass ; check if dialouge box
+	lw v1,0x28(s3)
+	sll v1,v1,0x01 ; double the 'characters per line' vaule
+	sw v1,0x28(s3)
+	@@pass: ; original instruction shortened
+		lw v1,-0x7DC8(gp)
+		sw a0,0x8(v1)
+		sw a1,0xC(v1)
+		sw a2,0x10(v1)
+		jr ra
+		sw a3,0x14(v1)
+.endarea
+
+; Message typing speed
+.org 0x001E593C
+	addiu a0,v1,0x2
+
 ; Text boxes positions/sizes
 ; TODO!!!
 ; Dialogue window
 .org 0x00285640
 	.word 80,352,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+; Name plate
+.org 0x00285670
+	.word 85,310,1,10 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+; Choices box
+.org 0x002856A0
+	.word 32,80,5,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
 ; Cutscene choices box
 .org 0x002856D0
