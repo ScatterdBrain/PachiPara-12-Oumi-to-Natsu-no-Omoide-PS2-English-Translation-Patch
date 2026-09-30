@@ -136,17 +136,17 @@
 		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F
 		.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
 	; Originally game just multiplies font size by amount of bytes in the string
-	; to figure out width of the bg graphics for some text boxes which doesn't work with VWF.
+	; to figure out width of the bg graphics for some text boxes, which doesn't work well with VWF.
 	; Instead we going to count pixel width of every char.
-	@vwf_string_len:
+	@name_choice_bg_width:
 		; Specific boxes we target are name and choice box.
 		@@name_or_choice:
 			lui v1,0x0034
 			ori v1,v1,0x510
-			beq v1,s0,@@name_string_len
+			beq v1,s0,@@name_bg_len
 			or v0,zero,s3
 			addiu v1,v1,0x520
-			beq v1,s0,@@choice_string_len
+			beq v1,s0,@@choice_bg_len
 			addiu v1,s0,-0xA78
 		; if neither - execute original code and return
 		@@pass:
@@ -154,105 +154,117 @@
 			j 0x001E5374
 			lw v0,0x34(s0)
 		; if name - count length and return
-		@@name_string_len:
-			jal @@get_string_len
+		@@name_bg_len:
+			jal @get_string_len
 			nop
-			lw v0,0x34(s0)
-			srl v0,v0,0x1
 			j 0x001E5378
-			addu v1,v1,v0 ; padding - sometimes name doesn't fit 
+			nop
 		; if choice box - count length of all choices and pick the longest
-		@@choice_string_len:
+		@@choice_bg_len:
 			addiu sp,sp,-0x10
 			sq zero,0x0(sp)
-			@@c_loop_start:
+			ori v0,zero,0x40 ; min size for choice box
+			sw v0,0x4(sp)
+			; load choice string pointers until 0x00
+			@@loop_start:
 				lw v0,0x0(v1)
-				beq v0,zero,@@c_loop_exit
+				beq v0,zero,@@loop_exit
 				addiu v1,v1,0x4
-				jal @@get_string_len
+				jal @get_string_len
 				sw v1,0x0(sp)
-				lw v0,0x4(sp)
+				lw v0,0x4(sp) ; load longest width so far (init. at 0)
 				slt at,v1,v0
-				beql at,zero,@@save_branch
+				beql at,zero,@@save_branch ; saves current width only if it's bigger than previous
 				sw v1,0x4(sp)
 				@@save_branch:
-					beq zero,zero,@@c_loop_start
+					beq zero,zero,@@loop_start
 					lw v1,0x0(sp)
-			@@c_loop_exit:
+			@@loop_exit:
 				lw v1,0x4(sp)
-				lw v0,0x34(s0)
-				addu v1,v1,v0 ; padding - sometimes choice doesn't fit
 				j 0x001E5378
 				addiu sp,sp,0x10
 		; go over the string adding pixel width of every character to the counter
-		@@get_string_len: ; v0 pointer to a string, v1 string length
-			addiu sp,sp,-0x20
-			sd ra,0x10(sp)
+		; !!!BUG!!! strings with special symbols ($p, %d etc.) do not count properly
+		@get_string_len: ; v0 pointer to a string, v1 string length
+			addiu sp,sp,-0x10
 			lui v1,hi(org(@vwf_table))
 			sw a0,0x0(sp)
 			sw a1,0x4(sp)
 			sw a2,0x8(sp)
 			or a0,zero,zero
-			@@loop_start:
+			@@loop_start: ; go over the string byte by byte until 0x00
 				lbu a1,0x0(v0)
 				beq a1,zero,@@loop_exit
 				nop 
 				slti a2,a1,0x0080
-				beql a2,zero,@@branch2 ; if not ASCII width = 24
-				addiu a1,zero,0x18
+				beql a2,zero,@@branch2
+				ori a1,zero,0x18 ; if not ASCII width = 24
 				addu a1,a1,v1
 				lb a1,lo(org(@vwf_table))-0x20(a1)
 				@@branch1:
 					add a0,a0,a1
 					beq zero,zero,@@loop_start
-					@@branch2:
-						addiu v0,v0,0x1
-						beq zero,zero,@@branch1
-						nop
-				@@loop_exit:
-					lw a1,0x34(s0)
-					mult a0,a0,a1
-					ori a1,a1,0x18
-					div a0,a1
-					lw a0,0x0(sp)
-					lw a1,0x4(sp)
-					lw a2,0x8(sp)
-					mflo v1
-					ld ra,0x10(sp)
-					jr ra
-					addiu sp,sp,0x20
+				@@branch2: ; if not ASCII add to string pointer twice
+					addiu v0,v0,0x1
+					beq zero,zero,@@branch1
+					nop
+			@@loop_exit:
+				lw a1,0x34(s0) ; horizontal spacing value
+				mult a0,a0,a1
+				ori a1,zero,0x18
+				div a0,a1 ; same idea as vwf hack but instead of doing multiplication/division for every char we do it on the sum of all char widths 
+				lw a0,0x0(sp)
+				lw a1,0x4(sp)
+				lw a2,0x8(sp)
+				mflo v1
+				jr ra
+				addiu sp,sp,0x10
+	; Hack that increases amount of characters allowed in some text boxes
+	; Game has per line pixel limit that doesn't work properly with vwf added
+	@more_chars:
+		ori v1,v1,0xFFF0
+		bnel v1,s3,@@branch1 ; if not dialouge box
+		addiu v1,v1,0x520
+		lw v1,0x28(s3)
+		sll v1,v1,0x01 ; double the 'characters per line' vaule
+		beq zero,zero,@@return
+		sw v1,0x28(s3)
+		@@branch1:
+			beql v1,s0,@@return ; if not name box
+			sll a2,a2,0x01 ; double char value
+		@@return:
+			j 0x0015F4DC
+			nop
 .endarea
 	nop
 
-; Jumps to VWF routine
+; Jumps to VWF hack routine
 .org 0x0015F550
 	jal @vwf_hack
 .org 0x0015F668
 	jal @vwf_hack
 
-; Jump to VWF string length function
+; Jump to calculate width of name plate/choice box width
 .org 0x001E536C
-	j @vwf_string_len
+	j @name_choice_bg_width
 	nop 
 
-; Hack that increases amount of characters allowed for cutscene subtitles and  dialogue box
-; Game has per line pixel limit that doesn't work properly with vwf added
+; Jump to more chars hack
 .org 0x0015F4D0
-.area 0x30
 	lui v1,0x0033
-	ori v1,v1,0xFFF0
-	bne v1,s3,@@pass ; check if dialouge box
-	lw v1,0x28(s3)
-	sll v1,v1,0x01 ; double the 'characters per line' vaule
-	sw v1,0x28(s3)
-	@@pass: ; original instruction shortened
-		lw v1,-0x7DC8(gp)
-		sw a0,0x8(v1)
-		sw a1,0xC(v1)
-		sw a2,0x10(v1)
-		jr ra
-		sw a3,0x14(v1)
-.endarea
+	j @more_chars
+	nop
+; original instruction shortened
+.org 0x0015F4DC	
+	lw v1,-0x7DC8(gp)
+	sw a0,0x8(v1)
+	sw a1,0xC(v1)
+	sw a2,0x10(v1)
+	jr ra
+	sw a3,0x14(v1)
+	nop 
+	nop 
+	nop 
 
 ; Message typing speed
 .org 0x001E593C
@@ -262,11 +274,11 @@
 ; TODO!!!
 ; Dialogue window
 .org 0x00285640
-	.word 80,352,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 68,342,3,28 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
 ; Name plate
 .org 0x00285670
-	.word 85,310,1,10 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 80,300,1,10 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
 ; Choices box
 .org 0x002856A0
@@ -280,6 +292,10 @@
 .org 0x00285730
 	.word 80,386,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+; 'Is this name okay?'
+.org 0x002859D0
+	.word 80,200,3,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
+	.word 20,20,20,20 ; font x-scale, y-scale, x-spacing, y-spacing
 
 ; Loading screen
 .org 0x00282360
