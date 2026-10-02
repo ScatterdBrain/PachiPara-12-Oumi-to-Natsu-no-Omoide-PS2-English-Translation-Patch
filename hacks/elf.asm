@@ -180,9 +180,9 @@
 					beq zero,zero,@@loop_start
 					lw v1,0x0(sp)
 			@@loop_exit:
-				lw v1,0x4(sp)
-				j 0x001E5378
-				addiu sp,sp,0x10
+			lw v1,0x4(sp)
+			j 0x001E5378
+			addiu sp,sp,0x10
 		; go over the string adding pixel width of every character to the counter
 		; !!!BUG!!! strings with special symbols ($p, %d etc.) do not count properly
 		@get_string_len: ; v0 pointer to a string, v1 string length
@@ -209,16 +209,16 @@
 					beq zero,zero,@@branch1
 					nop
 			@@loop_exit:
-				lw a1,0x34(s0) ; horizontal spacing value
-				mult a0,a0,a1
-				ori a1,zero,0x18
-				div a0,a1 ; same idea as vwf hack but instead of doing multiplication/division for every char we do it on the sum of all char widths 
-				lw a0,0x0(sp)
-				lw a1,0x4(sp)
-				lw a2,0x8(sp)
-				mflo v1
-				jr ra
-				addiu sp,sp,0x10
+			lw a1,0x34(s0) ; horizontal spacing value
+			mult a0,a0,a1
+			ori a1,zero,0x18
+			div a0,a1 ; same idea as vwf hack but instead of doing multiplication/division for every char we do it on the sum of all char widths 
+			lw a0,0x0(sp)
+			lw a1,0x4(sp)
+			lw a2,0x8(sp)
+			mflo v1
+			jr ra
+			addiu sp,sp,0x10
 	; Hack that increases amount of characters allowed in some text boxes
 	; Game has per line pixel limit that doesn't work properly with vwf added
 	@more_chars:
@@ -292,7 +292,7 @@
 .org 0x00285730
 	.word 80,386,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
-; 'Is this name okay?'
+; 'Is this name correct?'
 .org 0x002859D0
 	.word 80,200,3,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 20,20,20,20 ; font x-scale, y-scale, x-spacing, y-spacing

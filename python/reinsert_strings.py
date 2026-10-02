@@ -3,6 +3,7 @@ import os
 import csv
 
 
+# commented blocks reserved for code caves
 targets = {
     "SLPS_255.74" : {
         "ptr_offset" : 0xFFD00,
@@ -107,8 +108,8 @@ targets = {
             (0xD00A0, 0x500),
             (0xD0958, 0x2B0),
             (0xD0DE0, 0x30),
-            (0xD0F30, 0x2630),
-            (0xD4CE8, 0x188)
+            (0xD0F30, 0x2630)#,
+            #(0xD4CE8, 0x188)
             ]
         }
     }
