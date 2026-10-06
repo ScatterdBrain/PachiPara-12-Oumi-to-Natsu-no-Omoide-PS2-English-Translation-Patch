@@ -5,3 +5,4 @@ __pycache__/
 *.xcf
 armips.py
 test.py
+notes.txt

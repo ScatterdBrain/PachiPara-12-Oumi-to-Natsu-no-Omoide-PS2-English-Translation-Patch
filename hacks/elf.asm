@@ -1,5 +1,6 @@
 .ps2
 
+
 .open "dump\dirty\SLPS_255.74", 0xFFD00
 
 ; Code cave in place of memory card message strings.
@@ -19,15 +20,14 @@
 		beq a2,a1,@@branch1
 		daddu v0,v1,zero
 		addiu a1,zero,0x1
-		beq a2,a1,@@branch2
-		nop 
-		beq a2,zero,@@branch3
-		nop 
-		beq zero,zero,@@branch4
+		beql a2,a1,@@branch2 ; beq to beql and moved instruction after branch into delay slot
+		lw a0,0x4C(a3)
+		beql a2,zero,@@branch3 ; same here
+		slti at,a0,0x0080
+		beq zero,zero,@@branch5
 		nop
 		@@branch3:
-			slti at,a0,0x0080 ; if not ASCII
-			beq at,zero,@@branch5
+			beq at,zero,@@branch5 ; if not ASCII
 			nop 
 			lw at,0x48(a3) ; keep a0 which has an ASCII value and use at instead
 			bne at,zero,@@branch5 ; a0 to at
@@ -52,15 +52,13 @@
 			beq zero,zero,@@branch5
 			mflo v0
 		@@branch2:
-			lw a0,0x4C(a3)
 			beq a0,zero,@@branch5
 			nop 
 			bgez v1,@@branch5
 			sra v0,v1,0x01
 			addiu v0,v1,0x1
+			beq zero,zero,@@branch5
 			sra v0,v0,0x01
-			beq zero,zero,@@branch4
-			nop
 		@@branch1:
 			ori a1,zero,0xA3A1
 			slt a1,a0,a1
@@ -102,13 +100,12 @@
 			lw a0,0x4C(a3)
 			beq a0,zero,@@branch5
 			nop 
-			bgez v1,@@branch4
+			bgez v1,@@branch5
 			sra v0,v1,0x01
 			addiu v0,v1,0x1
-			sra v0,v0,0x01
-		@@branch4:
+		@@branch4: ; considering branch4 just goes to branch5 (exit) i just replaced all branch4 to branch5 
 			beq zero,zero,@@branch5
-			nop 
+			sra v0,v0,0x01
 		@@branch6:
 			lui a1,0x002F
 			addiu a2,zero,0x1
@@ -123,7 +120,7 @@
 	; Values in this table tell width of char bitmap in pixels
 	; table indexed by ASCII value of a char
 	@vwf_table:
-		;         !  "  #  $  %  &  '  (  )  *  +  ,  -  .  / 
+		;     SP  !  "  #  $  %  &  '  (  )  *  +  ,  -  .  / 
 		.byte  8, 8,12,14,14,14,14, 6,12,12,16,16, 8,16, 8,16
 		;      0  1  2  3  4  5  6  7  8  9  :  ;  <  =  >  ?
 		.byte 14,14,14,14,14,14,14,14,14,14, 8, 8,16,16,16,16
@@ -133,105 +130,56 @@
 		.byte 14,14,14,14,14,14,14,14,14,14,14,12,14,12,14,16
 		;      `  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
 		.byte 12,14,14,14,14,14,14,14,14, 6,12,14, 6,14,14,14
-		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F
+		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F ; 0x7F is printable.
 		.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
-	; Originally game just multiplies font size by amount of bytes in the string
-	; to figure out width of the bg graphics for some text boxes, which doesn't work well with VWF.
-	; Instead we going to count pixel width of every char.
-	@name_choice_bg_width:
-		; Specific boxes we target are name and choice box.
-		@@name_or_choice:
-			lui v1,0x0034
-			ori v1,v1,0x510
-			beq v1,s0,@@name_bg_len
-			or v0,zero,s3
-			addiu v1,v1,0x520
-			beq v1,s0,@@choice_bg_len
-			addiu v1,s0,-0xA78
-		; if neither - execute original code and return
-		@@pass:
-			lw v1,0x28(s0)
-			j 0x001E5374
-			lw v0,0x34(s0)
-		; if name - count length and return
-		@@name_bg_len:
-			jal @get_string_len
-			nop
-			j 0x001E5378
-			nop
-		; if choice box - count length of all choices and pick the longest
-		@@choice_bg_len:
-			addiu sp,sp,-0x10
-			sq zero,0x0(sp)
-			ori v0,zero,0x40 ; min size for choice box
-			sw v0,0x4(sp)
-			; load choice string pointers until 0x00
-			@@loop_start:
-				lw v0,0x0(v1)
-				beq v0,zero,@@loop_exit
-				addiu v1,v1,0x4
-				jal @get_string_len
-				sw v1,0x0(sp)
-				lw v0,0x4(sp) ; load longest width so far (init. at 0)
-				slt at,v1,v0
-				beql at,zero,@@save_branch ; saves current width only if it's bigger than previous
-				sw v1,0x4(sp)
-				@@save_branch:
-					beq zero,zero,@@loop_start
-					lw v1,0x0(sp)
-			@@loop_exit:
-			lw v1,0x4(sp)
-			j 0x001E5378
-			addiu sp,sp,0x10
-		; go over the string adding pixel width of every character to the counter
-		; !!!BUG!!! strings with special symbols ($p, %d etc.) do not count properly
-		@get_string_len: ; v0 pointer to a string, v1 string length
-			addiu sp,sp,-0x10
-			lui v1,hi(org(@vwf_table))
-			sw a0,0x0(sp)
-			sw a1,0x4(sp)
-			sw a2,0x8(sp)
-			or a0,zero,zero
-			@@loop_start: ; go over the string byte by byte until 0x00
-				lbu a1,0x0(v0)
-				beq a1,zero,@@loop_exit
-				nop 
-				slti a2,a1,0x0080
-				beql a2,zero,@@branch2
-				ori a1,zero,0x18 ; if not ASCII width = 24
-				addu a1,a1,v1
-				lb a1,lo(org(@vwf_table))-0x20(a1)
-				@@branch1:
-					add a0,a0,a1
-					beq zero,zero,@@loop_start
-				@@branch2: ; if not ASCII add to string pointer twice
-					addiu v0,v0,0x1
-					beq zero,zero,@@branch1
-					nop
-			@@loop_exit:
-			lw a1,0x34(s0) ; horizontal spacing value
-			mult a0,a0,a1
-			ori a1,zero,0x18
-			div a0,a1 ; same idea as vwf hack but instead of doing multiplication/division for every char we do it on the sum of all char widths 
-			lw a0,0x0(sp)
-			lw a1,0x4(sp)
-			lw a2,0x8(sp)
-			mflo v1
-			jr ra
-			addiu sp,sp,0x10
+	; Routine for counting pixel width of vwf string
+	@vwf_string_len: ; a0 pointer to a string, v0 string length, v1 table offset and a3 free
+		lui v1,hi(org(@vwf_table))
+		or v0,zero,zero
+		@@loop_start: ; go over the string byte by byte until 0x00
+			lbu a3,0x0(a0)
+			beql a3,zero,@@loop_exit
+			ori v1,zero,0x18
+			slti at,a3,0x0080
+			beql at,zero,@@branch2
+			ori a3,zero,0x18 ; if not ASCII width = 24
+			addu a3,a3,v1
+			lb a3,lo(org(@vwf_table))-0x20(a3)
+			@@branch1:
+				add v0,v0,a3
+				beq zero,zero,@@loop_start
+			@@branch2: ; if not ASCII add to string pointer twice
+				addiu a0,a0,0x1
+				beq zero,zero,@@branch1
+				nop
+		@@loop_exit:
+		sll v0,v0,0x01
+		div v0,v1
+		jr ra
+		mflo v0
 	; Hack that increases amount of characters allowed in some text boxes
 	; Game has per line pixel limit that doesn't work properly with vwf added
 	@more_chars:
-		ori v1,v1,0xFFF0
-		bnel v1,s3,@@branch1 ; if not dialouge box
-		addiu v1,v1,0x520
-		lw v1,0x28(s3)
-		sll v1,v1,0x01 ; double the 'characters per line' vaule
-		beq zero,zero,@@return
-		sw v1,0x28(s3)
-		@@branch1:
-			beql v1,s0,@@return ; if not name box
-			sll a2,a2,0x01 ; double char value
+		@@dialogue_branch:
+			bnel v1,s3,@@choice_branch ; if not dialouge box
+			addiu v1,v1,0xA40
+			lw v1,0x28(s3)
+			sll v1,v1,0x01 ; double the 'characters per line' vaule
+			beq zero,zero,@@return
+			sw v1,0x28(s3)
+		@@choice_branch:
+			bnel v1,s0,@@name_branch ; if not choice box
+			addiu v1,v1,-0x520
+			@@repeat:
+			lw v1,0x28(s0)
+			sll v1,v1,0x01 ; double the 'characters per line' vaule
+			beq zero,zero,@@return
+			sw v1,0x28(s0)
+		@@name_branch:
+			bne v1,s0,@@return ; if not name box
+			nop
+			beq zero,zero,@@repeat
+			addiu a2,a2,0x05 ; Add a bit to char value. Some names have the last letter cut-off.
 		@@return:
 			j 0x0015F4DC
 			nop
@@ -240,20 +188,22 @@
 
 ; Jumps to VWF hack routine
 .org 0x0015F550
-	jal @vwf_hack
+	jal @vwf_hack ; regular text printing
 .org 0x0015F668
-	jal @vwf_hack
+	jal @vwf_hack ; special text printing (some menus, memory card messages?)
 
-; Jump to calculate width of name plate/choice box width
-.org 0x001E536C
-	j @name_choice_bg_width
-	nop 
+; Jump to vwf string length
+.org 0x001E5258
+	jal @vwf_string_len ; character name
+.org 0x001E4A90
+	jal @vwf_string_len ; dialogue choices
 
 ; Jump to more chars hack
 .org 0x0015F4D0
+.area 0x30,0x00
 	lui v1,0x0033
 	j @more_chars
-	nop
+	ori v1,v1,0xFFF0
 ; original instruction shortened
 .org 0x0015F4DC	
 	lw v1,-0x7DC8(gp)
@@ -262,9 +212,7 @@
 	sw a2,0x10(v1)
 	jr ra
 	sw a3,0x14(v1)
-	nop 
-	nop 
-	nop 
+.endarea
 
 ; Message typing speed
 .org 0x001E593C

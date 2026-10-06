@@ -1,5 +1,6 @@
 .ps2
 
+
 .open "dump\dirty\SLPS_255.74", 0x0 ; Open file and don't use memory offset
 
 @memory_offset equ 0xFFD00 ; Add this memory offset to file offset to get a ram address of sprite data

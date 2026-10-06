@@ -1,5 +1,6 @@
 .ps2
 
+
 .open "dump\dirty\MAP\M_CMN.BIN", 0x38D580
 
 ; Code cave in place of food place name strings. They'll end up elsewhere during reinsertion anyway.
