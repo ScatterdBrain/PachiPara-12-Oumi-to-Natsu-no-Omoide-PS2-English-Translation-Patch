@@ -141,6 +141,7 @@ nop
 			jr ra
 			addiu v1,v1,0x4
 .endarea
+
 ; replaced beggining of this function with a jump
 ; that checks if current keyboard is English
 .org 0x0040CE80
@@ -231,5 +232,9 @@ nop
 .org 0x00453070
 	.word 40,334,40,3 ; x-pos, y-pos, num of chars, num of lines
 	.word 18,18,18,26 ; font x-scale, y-scale, x-spacing, y-spacing
+; Shop Screen
+.org 0x0045D430
+	.word 80,352,26,3 ; x-pos, y-pos, num of chars, num of lines
+	.word 20,20,20,22 ; font x-scale, y-scale, x-spacing, y-spacing
 
 .close

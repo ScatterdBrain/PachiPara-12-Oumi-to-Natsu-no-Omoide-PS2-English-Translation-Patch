@@ -132,14 +132,14 @@
 		.byte 12,14,14,14,14,14,14,14,14, 6,12,14, 6,14,14,14
 		;      p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ 7F ; 0x7F is printable.
 		.byte 14,14,12,12,14,14,14,14,14,14,14,13,14,13,16,12
-	; Routine for counting pixel width of vwf string
-	@vwf_string_len: ; a0 pointer to a string, v0 string length, v1 table offset and a3 free
+	; Get approximate width of the string counting each letters' vwf value
+	@vwf_width_approx: ; a0 pointer to a string, v0 string length, v1 table offset and a3 is free
 		lui v1,hi(org(@vwf_table))
 		or v0,zero,zero
 		@@loop_start: ; go over the string byte by byte until 0x00
 			lbu a3,0x0(a0)
 			beql a3,zero,@@loop_exit
-			ori v1,zero,0x18
+			ori v1,zero,0xC ; half character width = 12
 			slti at,a3,0x0080
 			beql at,zero,@@branch2
 			ori a3,zero,0x18 ; if not ASCII width = 24
@@ -153,12 +153,40 @@
 				beq zero,zero,@@branch1
 				nop
 		@@loop_exit:
-		sll v0,v0,0x01
-		div v0,v1
+		div v0,v1 ; divide final value by half char width
 		jr ra
 		mflo v0
+	; Same as vwf_width_approx but use font size to get more precise values
+	@name_bg_width:
+		lui v1,hi(org(@vwf_table))
+		or v0,zero,zero
+		lw a2,0x34(s1) ; load font spacing
+		@@loop_start: ; go over the string byte by byte until 0x00
+			lbu a3,0x0(a0)
+			beql a3,zero,@@loop_exit
+			lw a2,0x1C(s1) ; load name box left border x-pos before leaving
+			slti at,a3,0x0080
+			beql at,zero,@@branch2
+			or a3,zero,a2 ; if not ASCII width = font size
+			addu a3,a3,v1
+			lb a3,lo(org(@vwf_table))-0x20(a3)
+			mult a3,a3,a2
+			ori at,zero,0x18
+			div a3,at
+			mflo a3
+			@@branch1:
+				add v0,v0,a3
+				beq zero,zero,@@loop_start
+			@@branch2: ; if not ASCII add to string pointer twice
+				addiu a0,a0,0x1
+				beq zero,zero,@@branch1
+				nop
+		@@loop_exit:
+		addu a2,a2,v0
+		jr ra
+		sw a2,0x90(s1) ; temporarily save name box right border x-pos to where name will be written
 	; Hack that increases amount of characters allowed in some text boxes
-	; Game has per line pixel limit that doesn't work properly with vwf added
+	; Game has per line pixel limit that doesn't work properly with vwf
 	@more_chars:
 		@@dialogue_branch:
 			bnel v1,s3,@@choice_branch ; if not dialouge box
@@ -179,7 +207,7 @@
 			bne v1,s0,@@return ; if not name box
 			nop
 			beq zero,zero,@@repeat
-			addiu a2,a2,0x05 ; Add a bit to char value. Some names have the last letter cut-off.
+			addiu a2,a2,0x10 ; Add a bit to char value. Some names have the last letter cut-off.
 		@@return:
 			j 0x0015F4DC
 			nop
@@ -192,19 +220,18 @@
 .org 0x0015F668
 	jal @vwf_hack ; special text printing (some menus, memory card messages?)
 
-; Jump to vwf string length
-.org 0x001E5258
-	jal @vwf_string_len ; character name
+; Count width of choice box strings based on vwf values
 .org 0x001E4A90
-	jal @vwf_string_len ; dialogue choices
+	jal @vwf_width_approx
 
 ; Jump to more chars hack
+; z_un_0015f4d0
 .org 0x0015F4D0
 .area 0x30,0x00
 	lui v1,0x0033
 	j @more_chars
 	ori v1,v1,0xFFF0
-; original instruction shortened
+; original z_un_0015f4d0 function shortened by remuving repeated lw v1,-0x7DC8(gp) instructions
 .org 0x0015F4DC	
 	lw v1,-0x7DC8(gp)
 	sw a0,0x8(v1)
@@ -212,6 +239,44 @@
 	sw a2,0x10(v1)
 	jr ra
 	sw a3,0x14(v1)
+.endarea
+
+; Modified this function to recalculate name bg width based on vwf values
+; it did some shifts to a0 to get 0x340510 offset to name box data
+; to me it looks like this math was pointless and could be replaced with lui 0x0034 and addiu 0x510
+; a0 always 0x1 on entry and ended up turned into 0x510 through shifts
+; z_un_001e5220
+.org 0x001E5220
+.area 0x70,0x00
+	addiu sp,sp,-0x30
+	sd ra,0x20(sp)
+	sq s1,0x10(sp)
+	lui s1,0x0034
+	sq s0,0x0(sp)
+	daddu s0,a0,zero
+	beq a1,zero,@@branch1
+	addiu s1,s1,0x510
+	jal @name_bg_width ; vwf string width
+	daddu a0,a1,zero
+	subu a2,a0,a1
+	beq zero,zero,@@branch2
+	srl a2,a2,0x1
+	@@branch1:
+		daddu a2,zero,zero
+	@@branch2:
+		lw a1,0x24(s1)
+		jal 0x001E5290 ; z_un_001e5290
+		daddu a0,s0,zero
+		lw s0,0x90(s1) ; if there's width value
+		bnel s0,zero,@@branch3
+		sw s0,0x48(s1) ; save it
+	@@branch3:
+		sw zero,0x90(s1) ; clean before leaving
+		ld ra,0x20(sp)
+		lq s1,0x10(sp)
+		lq s0,0x0(sp)
+		jr ra
+		addiu sp,sp,0x30
 .endarea
 
 ; Message typing speed
