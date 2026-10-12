@@ -156,15 +156,14 @@
 		div v0,v1 ; divide final value by half char width
 		jr ra
 		mflo v0
-	; Same as vwf_width_approx but use font size to get more precise values
-	@name_bg_width:
+	; Get precise width of the string based on vwf values and font size
+	@vwf_width_precise:
 		lui v1,hi(org(@vwf_table))
 		or v0,zero,zero
-		lw a2,0x34(s1) ; load font spacing
 		@@loop_start: ; go over the string byte by byte until 0x00
 			lbu a3,0x0(a0)
-			beql a3,zero,@@loop_exit
-			lw a2,0x1C(s1) ; load name box left border x-pos before leaving
+			beq a3,zero,@@loop_exit
+			nop ; remove?
 			slti at,a3,0x0080
 			beql at,zero,@@branch2
 			or a3,zero,a2 ; if not ASCII width = font size
@@ -182,9 +181,49 @@
 				beq zero,zero,@@branch1
 				nop
 		@@loop_exit:
+		jr ra
+		nop
+	; Calculate width of name box bg graphic using vwf values and font size value
+	@name_bg_width_get:
+		sd ra,-0x10(sp)
+		jal @vwf_width_precise
+		lw a2,0x34(s1) ; load font spacing
+		lw a2,0x1C(s1) ; load name box left border x-pos
 		addu a2,a2,v0
+		ld ra,-0x10(sp)
 		jr ra
 		sw a2,0x90(s1) ; temporarily save name box right border x-pos to where name will be written
+	; Calculate width of every choice string based on vwf values and font size value
+	@choice_bg_width_get:
+		sd ra,-0x10(sp)
+		sw a0,-0x8(sp) ; save start of the string
+		lui v1,0x0034
+		jal @vwf_width_precise
+		lw a2,0xA64(v1) ; load font spacing
+		lui v1,0x0034
+		lw a2,0xA4C(v1) ; load choice box left border x-pos
+		addu a2,a2,v0
+		lw a3,0xAC0(v1) ; load previous width for comparison
+		slt at,a3,a2
+		bnel at,zero,@@exit ; if new width bigger then old
+		sw a2,0xAC0(v1) ; temporarily save choice box right border x-pos to where choices will be written
+		@@exit:
+			lw v0,-0x8(sp)
+			ld ra,-0x10(sp)
+			jr ra
+			subu v0,a0,v0 ; byte count of the string
+	@choice_bg_width_write:
+		lw a1,0xAC0(v1)
+		beq a1,zero,@@exit ; if width value is 0 leave
+		nop
+		slti at,a1,0x00A6 ; if width less then min value add some more
+		bnel at,zero,@@pass ; orignal code added width of 2 chars if biggest string was less then 11 chars
+		addiu a1,a1,0x12 ; add 18 for now
+		@@pass:
+			sw a1,0xA78(v1) ; save it
+		@@exit:
+			jr ra
+			sw zero,0xAC0(v1) ; clean before leaving
 	; Hack that increases amount of characters allowed in some text boxes
 	; Game has per line pixel limit that doesn't work properly with vwf
 	@more_chars:
@@ -204,10 +243,8 @@
 			beq zero,zero,@@return
 			sw v1,0x28(s0)
 		@@name_branch:
-			bne v1,s0,@@return ; if not name box
+			beq v1,s0,@@repeat ; if name box
 			nop
-			beq zero,zero,@@repeat
-			addiu a2,a2,0x10 ; Add a bit to char value. Some names have the last letter cut-off.
 		@@return:
 			j 0x0015F4DC
 			nop
@@ -220,9 +257,13 @@
 .org 0x0015F668
 	jal @vwf_hack ; special text printing (some menus, memory card messages?)
 
-; Count width of choice box strings based on vwf values
+; jump to new choice box width calculation
 .org 0x001E4A90
-	jal @vwf_width_approx
+	jal @choice_bg_width_get
+	addiu a0,sp,0x60
+	srl v0,v0,0x01 ; srl before addiu works better with vwf
+	beq zero,zero,0x001E4AA8
+	addiu a0,v0,0x1
 
 ; Jump to more chars hack
 ; z_un_0015f4d0
@@ -231,7 +272,7 @@
 	lui v1,0x0033
 	j @more_chars
 	ori v1,v1,0xFFF0
-; original z_un_0015f4d0 function shortened by remuving repeated lw v1,-0x7DC8(gp) instructions
+; original z_un_0015f4d0 function shortened by removing repeated lw v1,-0x7DC8(gp) instructions
 .org 0x0015F4DC	
 	lw v1,-0x7DC8(gp)
 	sw a0,0x8(v1)
@@ -256,19 +297,21 @@
 	daddu s0,a0,zero
 	beq a1,zero,@@branch1
 	addiu s1,s1,0x510
-	jal @name_bg_width ; vwf string width
+	jal @name_bg_width_get ; vwf string width
 	daddu a0,a1,zero
 	subu a2,a0,a1
-	beq zero,zero,@@branch2
 	srl a2,a2,0x1
+	beq zero,zero,@@branch2
+	addiu a2,a2,0x1
 	@@branch1:
 		daddu a2,zero,zero
 	@@branch2:
 		lw a1,0x24(s1)
 		jal 0x001E5290 ; z_un_001e5290
 		daddu a0,s0,zero
-		lw s0,0x90(s1) ; if there's width value
-		bnel s0,zero,@@branch3
+	@@name_bg_width_write:
+		lw s0,0x90(s1) ; write new name box width
+		bnel s0,zero,@@branch3 ; if there's width value
 		sw s0,0x48(s1) ; save it
 	@@branch3:
 		sw zero,0x90(s1) ; clean before leaving
@@ -277,6 +320,127 @@
 		lq s0,0x0(sp)
 		jr ra
 		addiu sp,sp,0x30
+.endarea
+
+; Added jump to the code that writes recalculated width for choice box
+; the rest of the code is untouched
+; probably will remove everything later, except the jump, to not clog the file
+; z_un_001e4cd0
+.org 0x001E4CD0
+.area 0x1A0,0x00
+	addiu sp,sp,-0x40
+	lui v0,0x0028
+	sd ra,0x20(sp)
+	sq s1,0x10(sp)
+	sq s0,0x0(sp)
+	lbu a0,0x5C68(v0)
+	lui v0,0x0028
+	sb a0,0x3C(sp)
+	lbu v1,0x5C69(v0)
+	lui v0,0x0034
+	lw a2,-0x54(v0)
+	slti at,a2,0x000B
+	bne at,zero,@@branch1
+	sb v1,0x3D(sp)
+	lui v0,0x0034
+	lw a1,-0x58(v0)
+	jal 0x001E5290 ; z_un_001e5290
+	addiu a0,zero,0x2
+	beq zero,zero,@@branch2
+	nop 
+	@@branch1:
+		lui v0,0x0034
+		addiu a2,a2,0x2
+		lw a1,-0x58(v0)
+		jal 0x001E5290 ; z_un_001e5290
+		addiu a0,zero,0x2
+	@@branch2:
+		lui v1,0x0034
+		sb zero,-0x1740(v1)
+		lui v1,0x0034
+		lw v1,-0x50(v1)
+		slt v1,zero,v1
+		bne v1,zero,@@branch3
+		daddu s1,zero,zero
+	@@branch9:
+		lui v1,0x0034
+		lui a1,0x0034
+		addiu v1,v1,-0x1740
+		beq v1,zero,@@branch4
+		addiu a1,a1,0xA30
+		lb v1,0x0(a1)
+		beq v1,zero,@@branch4
+		nop 
+		lw v1,0x84(a1)
+		slti at,v1,0x0008
+		beq at,zero,@@branch4
+		nop 
+		lw a0,0x5C(a1)
+		addiu v1,zero,0x2
+		bne a0,v1,@@branch5
+		nop 
+	@@branch11:
+		lw v1,0x88(a1)
+		lui a0,0x0034
+		addiu a0,a0,-0x1740
+		sll v1,v1,0x02
+		addu v1,v1,a1
+		sw a0,0x64(v1)
+		lw v1,0x88(a1)
+		lw a0,0x84(a1)
+		addiu v1,v1,0x1
+		sw v1,0x88(a1)
+		addiu a0,a0,0x1
+		slti v1,v1,0x0008
+		bne v1,zero,@@branch4
+		sw a0,0x84(a1)
+		sw zero,0x88(a1)
+	@@branch4:
+		addiu a0,zero,0x1
+		lui v1,0x0034
+		beq zero,zero,@@branch6
+		sw a0,-0x5C(v1)
+	@@branch3:
+		lui s0,0x0034
+		addiu s0,s0,-0x60
+	@@branch8:
+		lw a1,0x18(s0)
+		lui a0,0x0034
+		jal 0x001B9450 ; z_un_001b9450
+		addiu a0,a0,-0x1740
+		lui v1,0x0034
+		lw v1,-0x50(v1)
+		addiu v1,v1,-0x1
+		slt v1,s1,v1
+		bne v1,zero,@@branch7
+		nop 
+		jal @choice_bg_width_write ; write new width
+	@@branch10:
+		lui v1,0x0034
+		lw v1,-0x50(v1)
+		addiu s1,s1,0x1
+		slt v1,s1,v1
+		bne v1,zero,@@branch8
+		addiu s0,s0,0x4
+		beq zero,zero,@@branch9
+		nop 
+	@@branch7:
+		lui a0,0x0034
+		addiu a1,sp,0x3C
+		jal 0x001B9450 ; z_un_001b9450
+		addiu a0,a0,-0x1740
+		beq zero,zero,@@branch10
+		nop 
+	@@branch5:
+		addiu v1,zero,0x1
+		beq zero,zero,@@branch11
+		sw v1,0x5C(a1)
+	@@branch6:
+		ld ra,0x20(sp)
+		lq s1,0x10(sp)
+		lq s0,0x0(sp)
+		jr ra
+		addiu sp,sp,0x40
 .endarea
 
 ; Message typing speed
@@ -305,6 +469,15 @@
 .org 0x00285730
 	.word 80,386,3,27 ; x-pos, y-pos, num of lines (height), num of chars (width)
 	.word 18,18,18,18 ; font x-scale, y-scale, x-spacing, y-spacing
+; 'Would you like to go fishing?'
+.org 0x002858B0
+; TODO
+; 'Choose fishing rod'
+.org 0x002858E0
+; TODO	
+; Fishing choices
+.org 0x00285820
+; TODO
 ; 'Is this name correct?'
 .org 0x002859D0
 	.word 80,200,3,21 ; x-pos, y-pos, num of lines (height), num of chars (width)
