@@ -201,12 +201,10 @@
 		jal @vwf_width_precise
 		lw a2,0xA64(v1) ; load font spacing
 		lui v1,0x0034
-		lw a2,0xA4C(v1) ; load choice box left border x-pos
-		addu a2,a2,v0
 		lw a3,0xAC0(v1) ; load previous width for comparison
-		slt at,a3,a2
+		slt at,a3,v0
 		bnel at,zero,@@exit ; if new width bigger then old
-		sw a2,0xAC0(v1) ; temporarily save choice box right border x-pos to where choices will be written
+		sw v0,0xAC0(v1) ; temporarily save vwf string width to where choices will be written
 		@@exit:
 			lw v0,-0x8(sp)
 			ld ra,-0x10(sp)
@@ -216,10 +214,12 @@
 		lw a1,0xAC0(v1)
 		beq a1,zero,@@exit ; if width value is 0 leave
 		nop
-		slti at,a1,0x00A6 ; if width less then min value add some more
+		slti at,a1,0x0086 ; if width less then min value add some more
 		bnel at,zero,@@pass ; orignal code added width of 2 chars if biggest string was less then 11 chars
 		addiu a1,a1,0x12 ; add 18 for now
 		@@pass:
+			lw at,0xA4C(v1) ; load choice box left border x-pos
+			addu a1,a1,at ; add string width to left border x-pos
 			sw a1,0xA78(v1) ; save it
 		@@exit:
 			jr ra

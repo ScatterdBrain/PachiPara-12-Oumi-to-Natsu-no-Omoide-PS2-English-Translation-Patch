@@ -215,7 +215,7 @@ nop
 	.word 18,18,18,23 ; font x-scale, y-scale, x-spacing, y-spacing
 ; 'Sort Inventory' prompt
 .org 0x00451350
-	.word 62,63,20,1 ; x-pos, y-pos, num of chars, num of lines
+	.word 152,153,20,1 ; x-pos, y-pos, num of chars, num of lines
 	.word 22,22,22,22 ; font x-scale, y-scale, x-spacing, y-spacing
 ; 'Sort Inventory' choices
 .org 0x00451380
